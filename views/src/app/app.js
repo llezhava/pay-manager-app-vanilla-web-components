@@ -54,16 +54,40 @@ class PayManagerApp extends HTMLElement {
 
     }
 
-    chartMonthData(payments) {
-        return payments.map(payment => {
 
-        })
+    getInitialState() {
     }
 
-    chartCategoryData(payments) {
-        return payments.map(payment => {
+    fetchCategories() {
+        fetch(`${url}/categories`)
+            .then(data => data.json())
+            .then(categories => {
+                this.querySelector('paym-controller')
+                    .setAttribute('categories', JSON.stringify(categories))
+            })
+            .catch(err => {
+                console.log('Could not update categories!')
+            })
+    }
 
-        })
+    fetchPayments() {
+        fetch(`${url}/payments`, {
+                body: {
+                    filters: JSON.stringify(this.filters)
+                }
+            })
+            .then(data => data.json())
+            .then(payments => {
+                this.querySelector('paym-records')
+                    .setAttribute('payments', JSON.stringify(payments))
+            })
+            .catch(err => {
+                console.log('Could not update categories!')
+            })
+    }
+
+    configure(node) {
+
     }
 
     render() {
@@ -73,20 +97,26 @@ class PayManagerApp extends HTMLElement {
 
         // Select elements
         let node = template.content.cloneNode(true)
+
+        this.fetchCategories()
+
+        this.root.appendChild(node);
+
+        // this.fetchPayments()
+        // this.fetchCategories()
+
+    }
+
+    addTestData(node) {
         let controller = node.querySelector('paym-controller')
         let records = node.querySelector('paym-records')
         let monthChart = node.querySelector('#perMonth')
         let categoryChart = node.querySelector('#perCategory')
 
 
-        console.log(records)
-
         // Pass down values
         controller.setAttribute('categories', JSON.stringify(this.categories))
         records.setAttribute('payments', JSON.stringify(this.filteredPayments))
-
-        this.root.appendChild(node);
-
     }
 
 

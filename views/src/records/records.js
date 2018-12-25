@@ -22,6 +22,10 @@ class RecordsContainer extends HTMLElement {
         this.render()
     }
 
+    attributeChangedCallback() {
+        this.render()
+    }
+
     createRecord(payment) {
         let record = document.createElement('paym-record')
         record.setAttribute('title', payment.title)
@@ -35,7 +39,9 @@ class RecordsContainer extends HTMLElement {
     getInitialState() {
         const payments = JSON.parse(this.getAttribute('payments'))
 
-        return {payments}
+        return {
+            payments
+        }
     }
 
     configure(node, state) {
@@ -44,18 +50,25 @@ class RecordsContainer extends HTMLElement {
         let sum = node.querySelector('#sumValue')
 
         // Add payment nodes
-        state.payments.forEach(payment => {
-            let pmNode = this.createRecord(payment)
-            records.appendChild(pmNode)
-        })
-        
-        // Add sum value
-        let sumValue = state.payments.reduce((acc, curr) => {
-            return acc + curr.amount
-        }, 0)
-        sum.textContent = sumValue
+        if (state.payments) {
+            state.payments.forEach(payment => {
+                let pmNode = this.createRecord(payment)
+                records.appendChild(pmNode)
+            })
 
-        recordsFound.textContent = state.payments.length
+            // Add sum value
+            let sumValue = state.payments.reduce((acc, curr) => {
+                return acc + curr.amount
+            }, 0)
+            sum.textContent = sumValue
+
+            recordsFound.textContent = state.payments.length
+        } else {
+            recordsFound.textContent = '0'
+            sum.textContent = '0'
+        }
+
+
     }
 
     render() {
