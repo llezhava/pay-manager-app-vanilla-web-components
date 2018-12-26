@@ -78,6 +78,14 @@ class PayManagerApp extends HTMLElement {
         let monthChart = node.querySelector('#perMonth')
         let categoryChart = node.querySelector('#perCategory')
 
+        controller.addEventListener('newFilters', e => {
+            console.log('New Filters! do something here')
+        })
+
+        controller.addEventListener('addPayment', e => {
+            console.log('New Payment! do something here')
+        })
+
 
         // Pass down initial test values
         controller.setAttribute('categories', JSON.stringify({useless: 'categoryname'}))
