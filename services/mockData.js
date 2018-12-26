@@ -27,9 +27,6 @@ function getPaymentRecords() {
 }
 
 
+const payments = [payment, payment]
 
-function testData(req, res) {
-    res.send({hello: 'world!'})
-}
-
-module.exports = {testData}
+module.exports = {payments, categories}

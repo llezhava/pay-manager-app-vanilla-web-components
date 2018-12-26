@@ -17,13 +17,28 @@ class RecordsContainer extends HTMLElement {
         });
     }
 
+    static get observedAttributes() {
+        return ['payments'];
+    }
+
     connectedCallback() {
         this.getInitialState()
         this.render()
     }
 
-    attributeChangedCallback() {
-        this.render()
+    attributeChangedCallback(name, oldValue, newValue) {
+        switch(name) {
+            case 'payments': {
+                let newPayments = JSON.parse(newValue)
+
+                // Check if it is mounted to the dom
+                if(this.root.querySelector('#recordsFound') === null) break;
+
+                this.configure(this.root, {payments: newPayments})
+                break;
+            }
+        }
+        console.log(`Changed ${name}`, {oldValue, newValue})
     }
 
     createRecord(payment) {
@@ -48,11 +63,13 @@ class RecordsContainer extends HTMLElement {
         let recordsFound = node.querySelector('#recordsFound')
         let records = node.querySelector('#recordsList')
         let sum = node.querySelector('#sumValue')
+        console.log('Appending', state)
 
         // Add payment nodes
-        if (state.payments) {
+        if (Array.isArray(state.payments)) {
             state.payments.forEach(payment => {
                 let pmNode = this.createRecord(payment)
+                console.log('Appending', payment)
                 records.appendChild(pmNode)
             })
 
@@ -60,6 +77,7 @@ class RecordsContainer extends HTMLElement {
             let sumValue = state.payments.reduce((acc, curr) => {
                 return acc + curr.amount
             }, 0)
+
             sum.textContent = sumValue
 
             recordsFound.textContent = state.payments.length
@@ -68,6 +86,7 @@ class RecordsContainer extends HTMLElement {
             sum.textContent = '0'
         }
 
+        console.log({root: this.root, recordsFound, records, sum})
 
     }
 

@@ -44,9 +44,38 @@ class AddNewPayment extends HTMLElement {
         });
     }
 
+    static get observedAttributes() {
+        return ['categories'];
+    }
 
     connectedCallback() {
         this.render()
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        switch (name) {
+            case 'categories':
+                {
+                    let categories = this.root.querySelector('select')
+                    if (categories === null) break;
+                    this.addCategories(categories)
+                    break;
+                }
+        }
+    }
+
+    addCategories(selectNode) {
+        const categories = JSON.parse(this.getAttribute('categories'))
+        
+        if (categories !== null) {
+            Object.keys(categories).map(key => {
+                let option = document.createElement('option')
+                option.setAttribute('value', categories[key])
+                option.innerText = categories[key]
+                selectNode.appendChild(option)
+                return option
+            })
+        }
     }
 
     configure(node) {
@@ -58,19 +87,8 @@ class AddNewPayment extends HTMLElement {
 
         const categoriesNode = node.querySelector('select')
 
-        const categories = JSON.parse(this.getAttribute('categories'))
-        
-        console.log('Categories', this.getAttribute('categories'))
+        this.addCategories(categoriesNode)
 
-        if (categories !== null) {
-            Object.keys(categories).map(key => {
-                let option = document.createElement('option')
-                option.setAttribute('value', categories[key])
-                option.innerText = categories[key]
-                categoriesNode.appendChild(option)
-                return option
-            })
-        }
 
         const submitButton = node.querySelector('#newPaymentForm')
 

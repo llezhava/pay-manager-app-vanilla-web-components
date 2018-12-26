@@ -32,9 +32,26 @@ class ExtendedFilters extends HTMLElement {
         });
     }
 
+    static get observedAttributes() {
+        return ['categories'];
+    }
+
 
     connectedCallback() {
         this.render()
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        switch (name) {
+            case 'categories':
+                {
+                    let categories = this.root.querySelector('#category')
+                    if (categories === null) break;
+                    this.addCategories(categories)
+                    break;
+                }
+                default: break;
+        }
     }
 
     getFilterValues() {
@@ -49,14 +66,15 @@ class ExtendedFilters extends HTMLElement {
         return filters
     }
 
-    addCategories(node) {
-        const select = node.querySelector('#category')
+    addCategories(select) {
         const categories = JSON.parse(this.getAttribute('categories'))
 
         if (categories === null) return
         else {}
 
-        select.innerHTML = ``
+        while (select.firstChild) {
+            select.removeChild(select.firstChild)
+        }
 
         return Object.keys(categories).map(key => {
             let option = document.createElement('option')
@@ -68,8 +86,8 @@ class ExtendedFilters extends HTMLElement {
     }
 
     configure(node) {
-        this.addCategories(node)
         const category = node.querySelector('#category')
+        this.addCategories(category)
         const fromDate = node.querySelector('#fromDate')
         const toDate = node.querySelector('#toDate')
         const fromAmount = node.querySelector('#fromAmount')
@@ -91,7 +109,6 @@ class ExtendedFilters extends HTMLElement {
         let node = template.content.cloneNode(true)
         this.configure(node)
         this.root.appendChild(node)
-
     }
 }
 

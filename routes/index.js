@@ -1,8 +1,10 @@
 const express = require('express')
-const mockData = require('../services/mockData')
 const router = express.Router()
+const api = require('./../services/api')
 
-router.get('/testData', mockData.testData)
+router.post('/payments', api.payments)
+router.get('/categories', api.categories)
+
 
 module.exports = router
   

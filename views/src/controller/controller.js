@@ -27,19 +27,32 @@ window.customElements.define('paym-extended-filters', ExtendedFilters)
 class Controller extends HTMLElement {
     constructor() {
         super();
+        this.filters = {}
         this.root = this.attachShadow({
             'mode': 'open'
         });
-        this.filters = {}
     }
 
+    static get observedAttributes() {
+        return ['categories', 'payments'];
+    }
 
     connectedCallback() {
         this.render()
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
-        console.log('Changed attribute into the controller!')
+        switch (name) {
+            case 'categories':
+                {
+                    let extendedFilters = this.root.querySelector('paym-extended-filters')
+                    let addPayment = this.root.querySelector('paym-add-payment')
+                    if (extendedFilters === null) break;
+                    extendedFilters.setAttribute('categories', newValue)
+                    addPayment.setAttribute('categories', newValue)
+                    break;
+                }
+        }
     }
 
 
@@ -51,6 +64,7 @@ class Controller extends HTMLElement {
     configureAdd(node) {
         const addPayment = node.querySelector('paym-add-payment')
 
+        if (addPayment === null) return
         const addButton = node.querySelector('#addPayment')
 
         addPayment.setAttribute('categories', this.getAttribute('categories'))
@@ -74,7 +88,9 @@ class Controller extends HTMLElement {
         let anyFilter = node.querySelector('#anyFilter')
 
         anyFilter.addEventListener('change', e => {
-            this.filters = Object.assign({}, this.filters, {anyFilter: e.target.value})
+            this.filters = Object.assign({}, this.filters, {
+                anyFilter: e.target.value
+            })
             this.dispatchEvent(new CustomEvent('newFilters', {
                 detail: this.filters
             }))
@@ -85,10 +101,10 @@ class Controller extends HTMLElement {
         showExtendedFilters.addEventListener('click', e => {
             let currentDisplay = this.root.querySelector('paym-extended-filters').style.display
 
-            if(currentDisplay !== 'block') {
-                this.root.querySelector('paym-extended-filters').style.display ='block'
+            if (currentDisplay !== 'block') {
+                this.root.querySelector('paym-extended-filters').style.display = 'block'
             } else {
-                this.root.querySelector('paym-extended-filters').style.display ='none'
+                this.root.querySelector('paym-extended-filters').style.display = 'none'
             }
 
         })
@@ -110,6 +126,7 @@ class Controller extends HTMLElement {
         })
 
     }
+
 
     render() {
         let node = template.content.cloneNode(true)

@@ -26,85 +26,73 @@ class PayManagerApp extends HTMLElement {
         this.root = this.attachShadow({
             'mode': 'open'
         });
-        this.categories = { ...categories
-        }
         this.payments = [...payments]
         this.filters = {}
         this.filteredPayments = [...payments]
-        this.testFetch()
     }
 
     connectedCallback() {
         this.render()
     }
 
-    testFetch() {
-        let testData = fetch(`${url}/testData`)
-            .then(data => {
-                return data.json()
-            }).then(data => {
-                console.log(data)
-            })
-            .catch(err => {
-                console.log('We errored!')
-            })
-    }
-
     setNewFilters() {
 
-    }
-
-
-    getInitialState() {
     }
 
     fetchCategories() {
         fetch(`${url}/categories`)
             .then(data => data.json())
             .then(categories => {
-                this.querySelector('paym-controller')
-                    .setAttribute('categories', JSON.stringify(categories))
+                console.log('Fetched categories: ', categories)
+                let controller = this.root.querySelector('paym-controller')
+                console.log(controller)
+                controller.setAttribute('categories', JSON.stringify(categories))
             })
             .catch(err => {
-                console.log('Could not update categories!')
+                console.log('Could not update categories!', err)
             })
     }
 
     fetchPayments() {
         fetch(`${url}/payments`, {
+            method: 'post',
                 body: {
                     filters: JSON.stringify(this.filters)
                 }
             })
             .then(data => data.json())
             .then(payments => {
-                this.querySelector('paym-records')
-                    .setAttribute('payments', JSON.stringify(payments))
+                let records = this.root.querySelector('paym-records')
+                records.setAttribute('payments', JSON.stringify(payments))
+
+                console.log('Payments: ', payments)
+               /// DO SOMETHING HERE
             })
             .catch(err => {
-                console.log('Could not update categories!')
+                console.log('Could not get payments!', err)
             })
     }
 
     configure(node) {
+        let controller = node.querySelector('paym-controller')
+        let records = node.querySelector('paym-records')
+        let monthChart = node.querySelector('#perMonth')
+        let categoryChart = node.querySelector('#perCategory')
+
+
+        // Pass down values
+        controller.setAttribute('categories', JSON.stringify({}))
+        records.setAttribute('payments', JSON.stringify({}))
 
     }
 
     render() {
-        while (this.firstChild) {
-            this.removeChild(this.firstChild);
-        }
-
-        // Select elements
         let node = template.content.cloneNode(true)
-
-        this.fetchCategories()
-
+        this.configure(node)
         this.root.appendChild(node);
 
-        // this.fetchPayments()
-        // this.fetchCategories()
-
+        this.fetchCategories()
+        this.fetchPayments()
     }
 
     addTestData(node) {
