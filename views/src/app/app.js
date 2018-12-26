@@ -26,7 +26,6 @@ class PayManagerApp extends HTMLElement {
         this.root = this.attachShadow({
             'mode': 'open'
         });
-        this.payments = [...payments]
         this.filters = {}
         this.filteredPayments = [...payments]
     }
@@ -80,9 +79,9 @@ class PayManagerApp extends HTMLElement {
         let categoryChart = node.querySelector('#perCategory')
 
 
-        // Pass down values
+        // Pass down initial values
         controller.setAttribute('categories', JSON.stringify({}))
-        records.setAttribute('payments', JSON.stringify({}))
+        records.setAttribute('payments', JSON.stringify([payments, ...payments]))
 
     }
 
@@ -94,19 +93,6 @@ class PayManagerApp extends HTMLElement {
         this.fetchCategories()
         this.fetchPayments()
     }
-
-    addTestData(node) {
-        let controller = node.querySelector('paym-controller')
-        let records = node.querySelector('paym-records')
-        let monthChart = node.querySelector('#perMonth')
-        let categoryChart = node.querySelector('#perCategory')
-
-
-        // Pass down values
-        controller.setAttribute('categories', JSON.stringify(this.categories))
-        records.setAttribute('payments', JSON.stringify(this.filteredPayments))
-    }
-
 
 }
 

@@ -65,6 +65,11 @@ class RecordsContainer extends HTMLElement {
         let sum = node.querySelector('#sumValue')
         console.log('Appending', state)
 
+        // Remove current records
+        while(records.firstChild) {
+            records.removeChild(records.firstChild)
+        }
+
         // Add payment nodes
         if (Array.isArray(state.payments)) {
             state.payments.forEach(payment => {
