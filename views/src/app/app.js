@@ -27,15 +27,10 @@ class PayManagerApp extends HTMLElement {
             'mode': 'open'
         });
         this.filters = {}
-        this.filteredPayments = [...payments]
     }
 
     connectedCallback() {
         this.render()
-    }
-
-    setNewFilters() {
-
     }
 
     fetchCategories() {
