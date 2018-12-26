@@ -72,6 +72,7 @@ class ExtendedFilters extends HTMLElement {
         if (categories === null) return
         else {}
 
+        // Remove existing categories
         while (select.firstChild) {
             select.removeChild(select.firstChild)
         }

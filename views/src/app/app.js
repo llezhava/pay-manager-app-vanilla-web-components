@@ -79,9 +79,9 @@ class PayManagerApp extends HTMLElement {
         let categoryChart = node.querySelector('#perCategory')
 
 
-        // Pass down initial values
-        controller.setAttribute('categories', JSON.stringify({}))
-        records.setAttribute('payments', JSON.stringify([payments, ...payments]))
+        // Pass down initial test values
+        controller.setAttribute('categories', JSON.stringify({useless: 'categoryname'}))
+        records.setAttribute('payments', JSON.stringify([...payments, ...payments]))
 
     }
 
