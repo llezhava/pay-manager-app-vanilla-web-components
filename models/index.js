@@ -3,6 +3,7 @@ const sequelize = new Sequelize('database', 'username', 'password', {
   host: 'localhost',
   dialect: 'sqlite',
   operatorsAliases: false,
+  logging: false,
 
   pool: {
     max: 5,
@@ -15,28 +16,21 @@ const sequelize = new Sequelize('database', 'username', 'password', {
   storage: 'db.sqlite'
 });
 
-
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log('Connection has been established successfully.');
-  })
-  .catch(err => {
-    console.error('Unable to connect to the database:', err);
-  });
-
-
-  const Records = sequelize.define('records', {
+  const Record = sequelize.define('record', {
       title: Sequelize.TEXT,
       amount: Sequelize.INTEGER,
-      category: Sequelize.TEXT,
       date: Sequelize.DATE,
       comment: Sequelize.TEXT
   })
 
-  const Categories = sequelize.define('categories', {
-      name: Sequelize.TEXT
+  const Category = sequelize.define('category', {
+      name: {
+        type: Sequelize.TEXT,
+        primaryKey: true
+      }
   })
+
+  Record.belongsTo(Category)
 
   sequelize.sync().then(e => {
     console.log('Synced db!')
