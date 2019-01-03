@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const controller = require('./../controllers')
-const addMockData = require('./../models/addMockData')
+const addMockData = require('./../controllers/addMockData')
 
 router.post('/payments', controller.payments)
 router.get('/categories', controller.categories)
