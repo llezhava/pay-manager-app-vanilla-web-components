@@ -54,6 +54,7 @@ class PayManagerApp extends HTMLElement {
     getInitialData() {
         let payments = this.getPayments()
         let categories = this.getCategories()
+        
         let recordsNode = this.root.querySelector('paym-records')
         let controllerNode = this.root.querySelector('paym-controller')
 
@@ -72,7 +73,6 @@ class PayManagerApp extends HTMLElement {
 
     setNewCategories(node, categories) {
         node.setAttribute('categories', JSON.stringify(categories))
-
     }
 
     configure(node) {

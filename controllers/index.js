@@ -30,6 +30,7 @@ async function records(req, res) {
             category: record['category.name']
         }
     })
+    
     res.json(newRecords)
 }
 
