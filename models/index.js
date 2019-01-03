@@ -1,40 +1,46 @@
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('database', 'username', 'password', {
-  host: 'localhost',
-  dialect: 'sqlite',
-  operatorsAliases: false,
-  logging: false,
-
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
-  },
-
-  // SQLite only
-  storage: 'db.sqlite'
+const sequelize = new Sequelize({
+ database: 'pay-manager',
+ username: 'root',
+ password: 'root',
+ dialect: 'mysql',
+ host: 'localhost',
+ logging: false,
+ port: 3306,
+ operatorsAliases: false,
+ pool: {
+     max: 100,
+     min: 0,
+     idle: 20000,
+     acquire: 20000
+ }
 });
 
-  const Record = sequelize.define('record', {
-      title: Sequelize.TEXT,
-      amount: Sequelize.INTEGER,
-      date: Sequelize.DATE,
-      comment: Sequelize.TEXT
-  })
 
-  const Category = sequelize.define('category', {
-      name: {
-        type: Sequelize.TEXT,
-        primaryKey: true
-      }
-  })
+const Category = sequelize.define('category', {
+ name: {
+  type: Sequelize.STRING,
+  unique: true
+ }
+})
 
-  Record.belongsTo(Category)
+const Record = sequelize.define('record', {
+ title: Sequelize.TEXT,
+ amount: Sequelize.INTEGER,
+ date: Sequelize.DATE,
+ comment: Sequelize.TEXT
+})
 
-  sequelize.sync().then(e => {
-    console.log('Synced db!')
-  })
-  .catch(err => {
-    console.log('Did not sync db!', err)
-  })
+Record.belongsTo(Category)
+
+sequelize.sync().then(e => {
+  console.log('Synced db!')
+ })
+ .catch(err => {
+  console.log('Did not sync db!', err)
+ })
+
+module.exports = {
+ Category,
+ Record
+}
