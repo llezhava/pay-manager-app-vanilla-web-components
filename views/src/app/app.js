@@ -2,7 +2,11 @@ const template = document.createElement('template')
 template.innerHTML = `
 <div>
 <section id="header"> TEST COMPONENT!</section>
-<paym-controller> </paym-controller>
+
+<paym-controller></paym-controller>
+
+Records:
+<section id="data">
 <paym-records></paym-records>
 <section id="charts">
 <paym-chart id="perMonth" for="month">
@@ -10,7 +14,23 @@ template.innerHTML = `
 <paym-chart id="perCategory" for="category">
 </paym-chart>
 </section>
+</section>
 </div>
+
+<style>
+div {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   max-width: 1200px;
+}
+
+#data {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+</style>
 `
 
 const url = `http://localhost:3000`
@@ -54,7 +74,7 @@ class PayManagerApp extends HTMLElement {
     getInitialData() {
         let payments = this.getPayments()
         let categories = this.getCategories()
-        
+
         let recordsNode = this.root.querySelector('paym-records')
         let controllerNode = this.root.querySelector('paym-controller')
 

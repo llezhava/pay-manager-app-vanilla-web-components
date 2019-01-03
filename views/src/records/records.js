@@ -99,7 +99,6 @@ class RecordsContainer extends HTMLElement {
         let node = template.content.cloneNode(true)
         let state = this.getInitialState()
         this.configure(node, state)
-
         this.root.appendChild(node)
 
     }
