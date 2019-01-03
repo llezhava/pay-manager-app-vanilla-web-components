@@ -38,7 +38,7 @@ class RecordsContainer extends HTMLElement {
                 break;
             }
         }
-        console.log(`Changed ${name}`, {oldValue, newValue})
+        // console.log(`Changed ${name}`, {oldValue, newValue})
     }
 
     createRecord(payment) {
@@ -63,7 +63,7 @@ class RecordsContainer extends HTMLElement {
         let recordsFound = node.querySelector('#recordsFound')
         let records = node.querySelector('#recordsList')
         let sum = node.querySelector('#sumValue')
-        console.log('Appending', state)
+        // console.log('Appending', state)
 
         // Remove current records
         while(records.firstChild) {
@@ -74,7 +74,7 @@ class RecordsContainer extends HTMLElement {
         if (Array.isArray(state.payments)) {
             state.payments.forEach(payment => {
                 let pmNode = this.createRecord(payment)
-                console.log('Appending', payment)
+                // console.log('Appending', payment)
                 records.appendChild(pmNode)
             })
 
@@ -91,7 +91,7 @@ class RecordsContainer extends HTMLElement {
             sum.textContent = '0'
         }
 
-        console.log({root: this.root, recordsFound, records, sum})
+        // console.log({root: this.root, recordsFound, records, sum})
 
     }
 

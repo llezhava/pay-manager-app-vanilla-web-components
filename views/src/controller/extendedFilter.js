@@ -66,24 +66,23 @@ class ExtendedFilters extends HTMLElement {
         return filters
     }
 
-    addCategories(select) {
+    addCategories(selectNode) {
         const categories = JSON.parse(this.getAttribute('categories'))
 
-        if (categories === null) return
-        else {}
+        if (categories !== null) {
 
-        // Remove existing categories
-        while (select.firstChild) {
-            select.removeChild(select.firstChild)
+            // Remove existing categories
+            while (selectNode.firstChild) {
+                selectNode.removeChild(selectNode.firstChild)
+            }
+
+            categories.forEach(cat => {
+                let option = document.createElement('option')
+                option.setAttribute('value', cat.id)
+                option.innerText = cat.name
+                selectNode.appendChild(option)
+            })
         }
-
-        return Object.keys(categories).map(key => {
-            let option = document.createElement('option')
-            option.setAttribute('value', categories[key])
-            option.innerText = categories[key]
-            select.appendChild(option)
-            return option
-        })
     }
 
     configure(node) {

@@ -66,14 +66,19 @@ class AddNewPayment extends HTMLElement {
 
     addCategories(selectNode) {
         const categories = JSON.parse(this.getAttribute('categories'))
-        
+
         if (categories !== null) {
-            Object.keys(categories).map(key => {
+
+            // Remove existing categories
+            while (selectNode.firstChild) {
+                selectNode.removeChild(selectNode.firstChild)
+            }
+
+            categories.forEach(cat => {
                 let option = document.createElement('option')
-                option.setAttribute('value', categories[key])
-                option.innerText = categories[key]
+                option.setAttribute('value', cat.id)
+                option.innerText = cat.name
                 selectNode.appendChild(option)
-                return option
             })
         }
     }

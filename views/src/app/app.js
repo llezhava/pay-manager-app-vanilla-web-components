@@ -1,8 +1,3 @@
-import {
-    categories,
-    payments
-} from './../mockData.js'
-
 const template = document.createElement('template')
 template.innerHTML = `
 <div>
@@ -33,38 +28,51 @@ class PayManagerApp extends HTMLElement {
         this.render()
     }
 
-    fetchCategories() {
-        fetch(`${url}/categories`)
+    getCategories() {
+        return fetch(`${url}/categories`)
             .then(data => data.json())
-            .then(categories => {
-                console.log('Fetched categories: ', categories)
-                let controller = this.root.querySelector('paym-controller')
-                console.log(controller)
-                controller.setAttribute('categories', JSON.stringify(categories))
-            })
             .catch(err => {
                 console.log('Could not update categories!', err)
+                return []
             })
     }
 
-    fetchPayments() {
-        fetch(`${url}/payments`, {
+    getPayments() {
+        return fetch(`${url}/payments`, {
             method: 'post',
                 body: {
                     filters: JSON.stringify(this.filters)
                 }
             })
             .then(data => data.json())
-            .then(payments => {
-                let records = this.root.querySelector('paym-records')
-                records.setAttribute('payments', JSON.stringify(payments))
-
-                console.log('Payments: ', payments)
-               /// DO SOMETHING HERE
-            })
             .catch(err => {
                 console.log('Could not get payments!', err)
+                return []
             })
+    }
+
+    getInitialData() {
+        let payments = this.getPayments()
+        let categories = this.getCategories()
+        let recordsNode = this.root.querySelector('paym-records')
+        let controllerNode = this.root.querySelector('paym-controller')
+
+        payments.then(data => {
+            this.setNewRecords(recordsNode, data)
+        })
+
+        categories.then(data => {
+            this.setNewCategories(controllerNode, data)
+        })
+    }
+
+    setNewRecords(node, payments) {
+        node.setAttribute('payments', JSON.stringify(payments))
+    }
+
+    setNewCategories(node, categories) {
+        node.setAttribute('categories', JSON.stringify(categories))
+
     }
 
     configure(node) {
@@ -80,21 +88,13 @@ class PayManagerApp extends HTMLElement {
         controller.addEventListener('addPayment', e => {
             console.log('New Payment! do something here')
         })
-
-
-        // Pass down initial test values
-        controller.setAttribute('categories', JSON.stringify({useless: 'categoryname'}))
-        records.setAttribute('payments', JSON.stringify([...payments, ...payments]))
-
     }
 
     render() {
         let node = template.content.cloneNode(true)
         this.configure(node)
         this.root.appendChild(node);
-
-        this.fetchCategories()
-        this.fetchPayments()
+        this.getInitialData()
     }
 
 }

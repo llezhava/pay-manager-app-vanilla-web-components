@@ -34,7 +34,7 @@ class Controller extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['categories', 'payments'];
+        return ['categories'];
     }
 
     connectedCallback() {
@@ -65,6 +65,7 @@ class Controller extends HTMLElement {
         const addPayment = node.querySelector('paym-add-payment')
 
         if (addPayment === null) return
+
         const addButton = node.querySelector('#addPayment')
 
         addPayment.setAttribute('categories', this.getAttribute('categories'))
@@ -106,7 +107,6 @@ class Controller extends HTMLElement {
             } else {
                 this.root.querySelector('paym-extended-filters').style.display = 'none'
             }
-
         })
 
         let extendedFilter = node.querySelector('paym-extended-filters')
@@ -124,7 +124,6 @@ class Controller extends HTMLElement {
                 detail: this.filters
             }))
         })
-
     }
 
 
