@@ -27,11 +27,11 @@ template.innerHTML = `
 }
 
 paym-records {
-
+    width: 60%;
 }
 
 #charts {
-    
+    width: 38%;
 }
 </style>
 `
