@@ -1,24 +1,18 @@
 const template = document.createElement('template')
 template.innerHTML = `
-<div>
-<section id="header"> TEST COMPONENT!</section>
-
-<paym-controller></paym-controller>
-
-Records:
-<section id="data">
-<paym-records></paym-records>
-<section id="charts">
-<paym-chart id="perMonth" for="month">
-</paym-chart>
-<paym-chart id="perCategory" for="category">
-</paym-chart>
-</section>
-</section>
-</div>
+    <paym-controller></paym-controller>
+    <section id="data">
+        <paym-records></paym-records>
+        <section id="charts">
+            <paym-chart id="perMonth" for="month">
+            </paym-chart>
+            <paym-chart id="perCategory" for="category">
+            </paym-chart>
+        </section>
+    </section>
 
 <style>
-div {
+:host {
    display: flex;
    flex-direction: column;
    justify-content: center;
@@ -28,7 +22,16 @@ div {
 #data {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
+    margin-top: 2em;
+}
+
+paym-records {
+
+}
+
+#charts {
+    
 }
 </style>
 `

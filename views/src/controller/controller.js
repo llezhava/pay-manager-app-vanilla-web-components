@@ -1,18 +1,41 @@
 const template = document.createElement('template')
 template.innerHTML = `
 <section id="controller">
-    <button type="button" id="addPayment">Add Payment</button>
-    <legend>Filter by any property:</legend>
-    <input type="text" id="anyFilter">
-    <button id="showExtendedFilters">Extended Filters</button>
-    <paym-extended-filters></paym-extended-filters>
-    <paym-add-payment></paym-add-payment>
+    <section>
+        <div id="addPayment">Add Payment</div>
+        <paym-separator></paym-separator>
+    </section>
+    <section>
+        <paym-separator></paym-separator>
+        <input type="text" id="anyFilter" placeholder="Filter by any property">
+        <paym-separator></paym-separator>
+        <div id="showExtendedFilters">Extended Filters</div>
+    </section>
 </section>
+
+<paym-extended-filters></paym-extended-filters>
+<paym-add-payment></paym-add-payment>
 <style>
+
 :host {
-    display: flex;
+    width: 100%
 }
 
+paym-separator {
+    height: 3em;
+}
+
+#controller {
+    background-color: white;
+    height: 3em;
+    padding: 1em;
+}
+
+section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 </style>
 `
 

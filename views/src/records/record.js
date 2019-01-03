@@ -8,6 +8,8 @@ template.innerHTML = `
     <span id="comment">Comment</span>
 </section>`
 
+
+// TODO: Add expanded state here.
 class Record extends HTMLElement {
     constructor() {
         super()

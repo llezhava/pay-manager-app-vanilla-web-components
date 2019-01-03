@@ -1,25 +1,41 @@
 const template = document.createElement('template')
 template.innerHTML = `
-<h2>Extended Filters</h2>
-<section id="byCategory">
-    <legend>Filter By Category</legend>
-    <select id="category" multiple="yes">
-        <option value="">Select Category</option>
-    </select>
+<section id="filters">
+    <section id="byCategory">
+         <h2>Filter By Category</h2>
+         <select id="category" multiple="yes">
+            <option value="">Select Category</option>
+        </select>
 </section>
+<paym-separator></paym-separator>
 <section id="byDate">
-    <legend>Filter By Date</legend>
-    <input type="date" id="fromDate">
-    <input type="date" id="toDate">
+    <h2>Filter By Date</h2>
+    <input type="date" id="fromDate" placeholder="from">
+    <input type="date" id="toDate" placeholder="to">
 </section>
+<paym-separator></paym-separator>
 <section id="byAmount">
-    <legend> Filter by Amount</legend>
-    <input type="number" id="fromAmount">
-    <input type="number" id="toAmount">
+    <h2>Filter by Amount</h2>
+    <input type="number" id="fromAmount" placeholder="from">
+    <input type="number" id="toAmount" placeholder="to">
+</section>
 </section>
 <style>
 :host {
     display: none
+}
+
+#filters {
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    padding: 0.5em;
+    margin-top: 2em;
+}
+
+#byDate, #byAmount {
+    display: flex;
+    flex-direction: column;
 }
 </style>
 `

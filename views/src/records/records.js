@@ -1,13 +1,39 @@
 const template = document.createElement('template');
 template.innerHTML = `
-<section id="records">
-<head><h2> <span id="recordsFound"></span> records found</h2></head>
+<head><div class="title"><span id="recordsFound"></span> records found</div></head>
     <section id="recordsList"></section>
-    <section id="sum">
+    <section id="aggregator">
         <span>Total: </span>
         <span id="sumValue"></span>
     </section>
-</section>
+
+<style>
+
+:host {
+    display: block;
+}
+
+
+#recordsList {
+    height: 750px;
+    overflow: scroll;
+    background-color: white;
+}
+
+#aggregator {
+    background-color: #a1c4ff;
+    height: 3em;
+}
+
+head {
+    position: absolute;
+}
+
+.title {
+    font-size: large;
+}
+
+</style>
 `
 class RecordsContainer extends HTMLElement {
     constructor() {
