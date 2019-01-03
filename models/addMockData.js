@@ -15,7 +15,6 @@ async function addCategories(categories, model) {
 
 async function addRecords(records, model) {
     let results = []
-    let filtered = records.filter(record => record.)
     records.forEach(async record => {
         results.push(model.create(record))
     })
