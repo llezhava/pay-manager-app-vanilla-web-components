@@ -11,9 +11,26 @@ async function categories(req, res) {
 
 async function payments(req, res) {
     let filters = req.body
-    let payments = await models.Record.findAll({raw: true})
-    // console.log(filters, payments)
-    res.json(payments)
+    const options = {
+        raw: true,
+        attributes: ['title', 'amount', 'date', 'comment'],
+        include: [
+            {model: models.Category}
+        ]
+    }
+    let payments = await models.Record.findAll(options)
+
+    let newPayments = payments.map(payment => {
+        let {title, amount, date, comment} = payment
+        return {
+            title, 
+            amount,
+            date, 
+            comment,
+            category: payment['category.name']
+        }
+    })
+    res.json(newPayments)
 }
 
 module.exports = {
