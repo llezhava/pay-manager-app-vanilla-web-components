@@ -7,18 +7,34 @@ template.innerHTML = `
 </div>
 
 <style>
-:host {
 
-}
 #bar {
-    border: 1px solid black;
-    height: 100%;
+    font-size: 1em;
+    text-align: center;
+    color: #45617e;
+    margin: 0.1em;
+    width: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 #fill {
-    background-color: blue;
-    height: 50px;
+    background-color: #a1c4ff;
 }
+
+#value {
+    display: none;
+}
+
+#bar:hover #value{ 
+    display: block;
+}
+
+#bar:hover #fill{ 
+    background-color: #779cdb;
+}
+
 </style>
 `
 
@@ -35,13 +51,22 @@ class Bar extends HTMLElement {
         this.render()
     }
 
+    // TODO: Improve sizing
     configure(node) {
         const name = this.getAttribute('name')
         const value = this.getAttribute('value')
         const max = this.getAttribute('max')
+        const fill = node.querySelector('#fill')
+
+
+        const maxPixels = 250
+        let currentPercent = Math.min(Math.ceil(value / max * 100), 100)
+        let currentPixels = maxPixels * currentPercent / 100
+
+        fill.style.height = `${currentPixels}px`
+
 
         node.querySelector('#value').innerText = value
-        // node.querySelector('#bar').innerText = max
         node.querySelector('#name').innerText = name
     }
 

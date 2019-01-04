@@ -28,7 +28,7 @@ template.innerHTML = `
 #data {
     margin-top: 2em;
     display: grid;
-    grid-template-columns: 30% 30% auto;
+    grid-template-columns: 30% auto auto;
     grid-column-gap: 2%;
 }
 

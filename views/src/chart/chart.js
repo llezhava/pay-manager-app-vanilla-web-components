@@ -20,8 +20,9 @@ template.innerHTML = `
 }
 
 #chart {
-    display: inline-grid;
-    
+    display: flex;
+    align-items: flex-end;
+    height: 300px;
 }
  </style>
 `
