@@ -2,8 +2,11 @@ const template = document.createElement('template')
 template.innerHTML = `
     <paym-controller></paym-controller>
     <section id="data">
-        <paym-records></paym-records>
-        <section id="charts">
+        <div id="recordsTitle" class="item-1">
+            <span id="recordsFound"></span> records found
+        </div>
+        <paym-records class="item-2"></paym-records>
+        <section id="charts" class="item-3">
             <paym-chart id="perMonth" for="month">
             </paym-chart>
             <paym-chart id="perCategory" for="category">
@@ -12,6 +15,7 @@ template.innerHTML = `
     </section>
 
 <style>
+
 :host {
    display: flex;
    flex-direction: column;
@@ -20,18 +24,25 @@ template.innerHTML = `
 }
 
 #data {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
     margin-top: 2em;
+    position: relative;
+    display: grid;
+    grid-gap: 1em;
 }
 
-paym-records {
-    width: 60%;
+.item-1 {
+    grid-column-start: 1;
+    grid-column-end: 1;
 }
 
-#charts {
-    width: 38%;
+.item-2 {
+    grid-row-start: 2;
+    grid-row-end: 2;
+}
+
+.item-3 {
+    grid-row-start: 2;
+    grid-row-end: 2;
 }
 </style>
 `
@@ -82,20 +93,24 @@ class PayManagerApp extends HTMLElement {
         let controllerNode = this.root.querySelector('paym-controller')
 
         payments.then(data => {
-            this.setNewRecords(recordsNode, data)
+            this.setNewRecords(this.root, data)
         })
 
         categories.then(data => {
-            this.setNewCategories(controllerNode, data)
+            this.setNewCategories(this.root, data)
         })
     }
 
     setNewRecords(node, payments) {
-        node.setAttribute('payments', JSON.stringify(payments))
+        let recordsFound = node.querySelector('#recordsFound')
+        let records = node.querySelector('paym-records')
+        recordsFound.textContent = payments.length
+        records.setAttribute('payments', JSON.stringify(payments))
     }
 
     setNewCategories(node, categories) {
-        node.setAttribute('categories', JSON.stringify(categories))
+        let controllerNode = node.querySelector('paym-controller')
+        controllerNode.setAttribute('categories', JSON.stringify(categories))
     }
 
     configure(node) {
