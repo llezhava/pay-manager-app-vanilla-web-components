@@ -30,7 +30,9 @@ div {
 }
 
 .fillGrey {
-
+    border: 0.1em solid #bbbbbb;
+    background-color: #bbbbbb;
+    color: #FFFFFF;
 }
 
 </style>

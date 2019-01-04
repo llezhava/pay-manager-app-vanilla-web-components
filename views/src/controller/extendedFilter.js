@@ -134,6 +134,7 @@ class ExtendedFilters extends HTMLElement {
                     }
 
                     let filters = this.getFilterValues()
+                    
                     this.dispatchEvent(new CustomEvent('newFilters', {
                         detail: filters
                     }))
