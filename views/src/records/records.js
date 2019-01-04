@@ -1,36 +1,32 @@
 const template = document.createElement('template');
 template.innerHTML = `
-<head><div class="title"><span id="recordsFound"></span> records found</div></head>
+<div id="records">
     <section id="recordsList"></section>
     <section id="aggregator">
         <span>Total: </span>
         <span id="sumValue"></span>
     </section>
-
+</div>
 <style>
 
 :host {
-    display: block;
+
 }
 
-
-#recordsList {
-    height: 750px;
-    overflow: scroll;
+#records {
     background-color: white;
 }
 
+#recordsList {
+    height: 650px;
+    padding-right: 1em;
+    padding-left: 1em;
+    overflow: scroll;
+    background-color: white;
+}
 #aggregator {
     background-color: #a1c4ff;
     height: 3em;
-}
-
-head {
-    position: absolute;
-}
-
-.title {
-    font-size: large;
 }
 
 </style>
@@ -58,7 +54,7 @@ class RecordsContainer extends HTMLElement {
                 let newPayments = JSON.parse(newValue)
 
                 // Check if it is mounted to the dom
-                if(this.root.querySelector('#recordsFound') === null) break;
+                if(this.root.querySelector('#recordsList') === null) break;
 
                 this.configure(this.root, {payments: newPayments})
                 break;
@@ -86,7 +82,6 @@ class RecordsContainer extends HTMLElement {
     }
 
     configure(node, state) {
-        let recordsFound = node.querySelector('#recordsFound')
         let records = node.querySelector('#recordsList')
         let sum = node.querySelector('#sumValue')
         // console.log('Appending', state)
@@ -111,9 +106,7 @@ class RecordsContainer extends HTMLElement {
 
             sum.textContent = sumValue
 
-            recordsFound.textContent = state.payments.length
         } else {
-            recordsFound.textContent = '0'
             sum.textContent = '0'
         }
 
