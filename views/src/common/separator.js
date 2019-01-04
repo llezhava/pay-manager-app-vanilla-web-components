@@ -1,10 +1,11 @@
 const template = document.createElement('template')
 template.innerHTML = `
-<div className="separator"></div>
+<div id="separator"></div>
 <style>
-:host {
+#separator {
     background-color: #d2ddeb;
     width: 1px;
+    height: 100%;
     margin: 0.2em;
 }
 </style>

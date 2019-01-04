@@ -3,9 +3,8 @@ template.innerHTML = `
 <section id="filters">
     <section id="byCategory">
          <h2>Filter By Category</h2>
-         <select id="category" multiple="yes">
-            <option value="">Select Category</option>
-        </select>
+         <section id="categories"></section>
+         <paym-tag theme="fillBlue" value="1" text="Some Text"> </paym-tag>
 </section>
 <paym-separator></paym-separator>
 <section id="byDate">
@@ -33,7 +32,14 @@ template.innerHTML = `
     margin-top: 2em;
 }
 
+#categories {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
 #byDate, #byAmount {
+    width: 25%
     display: flex;
     flex-direction: column;
 }
@@ -61,7 +67,7 @@ class ExtendedFilters extends HTMLElement {
         switch (name) {
             case 'categories':
                 {
-                    let categories = this.root.querySelector('#category')
+                    let categories = this.root.querySelector('#categories')
                     if (categories === null) break;
                     this.addCategories(categories)
                     break;
@@ -84,6 +90,7 @@ class ExtendedFilters extends HTMLElement {
 
     addCategories(selectNode) {
         const categories = JSON.parse(this.getAttribute('categories'))
+        console.log('Adding categories!', categories)
 
         if (categories !== null) {
 
@@ -93,23 +100,24 @@ class ExtendedFilters extends HTMLElement {
             }
 
             categories.forEach(cat => {
-                let option = document.createElement('option')
+                let option = document.createElement('paym-tag')
                 option.setAttribute('value', cat.id)
-                option.innerText = cat.name
+                option.setAttribute('text', cat.name)
+                option.setAttribute('theme', 'light')
                 selectNode.appendChild(option)
             })
         }
     }
 
     configure(node) {
-        const category = node.querySelector('#category')
-        this.addCategories(category)
+        const categories = node.querySelector('#categories')
+        this.addCategories(categories)
         const fromDate = node.querySelector('#fromDate')
         const toDate = node.querySelector('#toDate')
         const fromAmount = node.querySelector('#fromAmount')
         const toAmount = node.querySelector('#toAmount')
 
-        const inputs = [category, fromDate, toDate, fromAmount, toAmount]
+        const inputs = [fromDate, toDate, fromAmount, toAmount]
 
         inputs.forEach(input => {
             input.addEventListener('change', e => {
