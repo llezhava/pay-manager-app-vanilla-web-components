@@ -2,25 +2,37 @@ const template = document.createElement('template')
 template.innerHTML = `
 <section id="filters">
     <section id="byCategory">
-         <h2>Filter By Category</h2>
+         <h2>Filter by category</h2>
          <section id="categories"></section>
-</section>
-<paym-separator></paym-separator>
-<section id="byDate">
-    <h2>Filter By Date</h2>
-    <input type="date" id="fromDate" placeholder="from">
-    <input type="date" id="toDate" placeholder="to">
-</section>
-<paym-separator></paym-separator>
-<section id="byAmount">
-    <h2>Filter by Amount</h2>
-    <input type="number" id="fromAmount" placeholder="from">
-    <input type="number" id="toAmount" placeholder="to">
-</section>
+    </section>
+    <paym-separator></paym-separator>
+    <section id="byDate">
+        <h2>Filter by date</h2>
+        <input type="date" id="fromDate" placeholder="from">
+        <input type="date" id="toDate" placeholder="to">
+    </section>
+    <paym-separator></paym-separator>
+    <section id="byAmount">
+        <h2>Filter by amount</h2>
+        <input type="number" id="fromAmount" placeholder="from">
+        <input type="number" id="toAmount" placeholder="to">
+    </section>
 </section>
 <style>
 :host {
     display: none
+}
+
+h2 {
+    font-size: 1em;
+}
+
+#filtersx {
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    padding: 0.5em;
+    margin-top: 2em;
 }
 
 #filters {
@@ -31,6 +43,7 @@ template.innerHTML = `
     margin-top: 2em;
 }
 
+
 #categories {
     display: flex;
     flex-direction: row;
@@ -38,7 +51,6 @@ template.innerHTML = `
 }
 
 #byDate, #byAmount {
-    width: 25%
     display: flex;
     flex-direction: column;
 }
