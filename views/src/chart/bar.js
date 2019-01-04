@@ -1,8 +1,16 @@
 const template = document.createElement('template')
 template.innerHTML = `
-<div id="value"></div>
-<div id="bar"></div>
-<div id="name"></div>
+<div id="bar">
+    <div id="value"></div>
+    <div id="fill"></div>
+    <div id="name"></div>
+</div>
+
+<style>
+#bar {
+    border: 1px solid black;
+}
+</style>
 `
 
 class Bar extends HTMLElement {
@@ -19,12 +27,12 @@ class Bar extends HTMLElement {
     }
 
     configure(node) {
+        const name = this.getAttribute('name')
         const value = this.getAttribute('value')
         const max = this.getAttribute('max')
-        const name = this.getAttribute('name')
 
         node.querySelector('#value').innerText = value
-        node.querySelector('#bar').innerText = max
+        // node.querySelector('#bar').innerText = max
         node.querySelector('#name').innerText = name
     }
 
