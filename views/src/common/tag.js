@@ -30,8 +30,8 @@ div {
 }
 
 .fillGrey {
-    border: 0.1em solid #bbbbbb;
-    background-color: #bbbbbb;
+    border: 0.1em solid #a7bedb;
+    background-color: #a7bedb;
     color: #FFFFFF;
 }
 
