@@ -1,5 +1,6 @@
 const template = document.createElement('template')
 template.innerHTML = `
+<section id="app">
     <paym-controller></paym-controller>
     <section id="data">
         <div id="recordsTitle" class="item-1">
@@ -13,36 +14,44 @@ template.innerHTML = `
             </paym-chart>
         </section>
     </section>
-
+</section>
 <style>
 
-:host {
+#app {
    display: flex;
    flex-direction: column;
    justify-content: center;
-   max-width: 1200px;
+   width: 1200px;
+   border: 1px solid black;
 }
 
 #data {
     margin-top: 2em;
-    position: relative;
     display: grid;
-    grid-gap: 1em;
+    grid-template-columns: 30% 30% auto;
+    grid-column-gap: 2%;
 }
 
 .item-1 {
+    grid-row-start: 1;
+    grid-row-end: 1;
     grid-column-start: 1;
     grid-column-end: 1;
+    margin-bottom: 1em;
 }
 
 .item-2 {
     grid-row-start: 2;
     grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 3;
 }
 
 .item-3 {
     grid-row-start: 2;
     grid-row-end: 2;
+    grid-column-start: 3;
+    grid-column-end: 3;
 }
 </style>
 `

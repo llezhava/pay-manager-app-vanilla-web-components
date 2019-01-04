@@ -17,10 +17,6 @@ template.innerHTML = `
 <paym-add-payment></paym-add-payment>
 <style>
 
-:host {
-    width: 100%
-}
-
 paym-separator {
     height: 3em;
 }

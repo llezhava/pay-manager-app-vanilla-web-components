@@ -7,8 +7,17 @@ template.innerHTML = `
 </div>
 
 <style>
+:host {
+
+}
 #bar {
     border: 1px solid black;
+    height: 100%;
+}
+
+#fill {
+    background-color: blue;
+    height: 50px;
 }
 </style>
 `

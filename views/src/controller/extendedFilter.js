@@ -2,18 +2,18 @@ const template = document.createElement('template')
 template.innerHTML = `
 <section id="filters">
     <section id="byCategory">
-         <h2>Filter by category</h2>
+         <div class="title">Filter by category</div>
          <section id="categories"></section>
     </section>
     <paym-separator></paym-separator>
     <section id="byDate">
-        <h2>Filter by date</h2>
+    <div class="title">Filter by date</div>
         <input type="date" id="fromDate" placeholder="from">
         <input type="date" id="toDate" placeholder="to">
     </section>
     <paym-separator></paym-separator>
     <section id="byAmount">
-        <h2>Filter by amount</h2>
+    <div class="title">Filter by amount</div>
         <input type="number" id="fromAmount" placeholder="from">
         <input type="number" id="toAmount" placeholder="to">
     </section>
@@ -21,27 +21,20 @@ template.innerHTML = `
 <style>
 :host {
     display: none;
-    color: #9ba5b2;
-}
-
-h2 {
-    font-size: 1em;
-}
-
-#filtersx {
-    display: flex;
-    justify-content: space-between;
-    background-color: white;
-    padding: 0.5em;
-    margin-top: 2em;
 }
 
 #filters {
     display: flex;
     justify-content: space-between;
     background-color: white;
-    padding: 0.5em;
+    color: #9ba5b2;
     margin-top: 2em;
+    padding: 1em;
+}
+
+.title {
+    font-size: 1em;
+    margin: 0.2em;
 }
 
 

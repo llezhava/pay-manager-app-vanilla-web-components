@@ -20,7 +20,8 @@ template.innerHTML = `
 }
 
 #chart {
-    display: flex
+    display: inline-grid;
+    
 }
  </style>
 `
