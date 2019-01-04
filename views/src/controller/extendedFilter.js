@@ -4,7 +4,6 @@ template.innerHTML = `
     <section id="byCategory">
          <h2>Filter By Category</h2>
          <section id="categories"></section>
-         <paym-tag theme="fillBlue" value="1" text="Some Text"> </paym-tag>
 </section>
 <paym-separator></paym-separator>
 <section id="byDate">
@@ -68,17 +67,32 @@ class ExtendedFilters extends HTMLElement {
             case 'categories':
                 {
                     let categories = this.root.querySelector('#categories')
+                    console.log('Categories', categories, this.root, this.root.firstChild)
                     if (categories === null) break;
                     this.addCategories(categories)
                     break;
                 }
-                default: break;
+            default:
+                break;
         }
     }
 
     getFilterValues() {
+        let category = this.root.querySelector('#categories')
+        let categoryNodes = category.querySelectorAll('paym-tag')
+        let categories = []
+
+        for (let i = 0; i < categoryNodes.length; i++) {
+            let tag = categoryNodes[i]
+
+            let isSelected = tag.getAttribute('isSelected') === 'true'
+
+            if (isSelected) {
+                categories.push(tag.getAttribute('value'))
+            }
+        }
         const filters = {
-            category: this.root.querySelector('#category').value,
+            categories,
             startDate: this.root.querySelector('#fromDate').valueAsDate,
             endDate: this.root.querySelector('#toDate').valueAsDate,
             fromAmount: this.root.querySelector('#fromAmount').value,
@@ -100,11 +114,31 @@ class ExtendedFilters extends HTMLElement {
             }
 
             categories.forEach(cat => {
-                let option = document.createElement('paym-tag')
-                option.setAttribute('value', cat.id)
-                option.setAttribute('text', cat.name)
-                option.setAttribute('theme', 'light')
-                selectNode.appendChild(option)
+                let tag = document.createElement('paym-tag')
+                tag.setAttribute('value', cat.id)
+                tag.setAttribute('text', cat.name)
+                tag.setAttribute('theme', 'light')
+                tag.setAttribute('isSelected', 'false')
+
+                tag.addEventListener('click', e => {
+                    let tag = e.target
+
+                    let isSelected = tag.getAttribute('isSelected') === 'true'
+
+                    if (isSelected) {
+                        tag.setAttribute('isSelected', 'false')
+                        tag.setAttribute('theme', 'light')
+                    } else {
+                        tag.setAttribute('isSelected', 'true')
+                        tag.setAttribute('theme', 'fillBlue')
+                    }
+
+                    let filters = this.getFilterValues()
+                    this.dispatchEvent(new CustomEvent('newFilters', {
+                        detail: filters
+                    }))
+                })
+                selectNode.appendChild(tag)
             })
         }
     }

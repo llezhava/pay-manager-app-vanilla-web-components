@@ -105,11 +105,11 @@ class PayManagerApp extends HTMLElement {
         let categoryChart = node.querySelector('#perCategory')
 
         controller.addEventListener('newFilters', e => {
-            console.log('New Filters! do something here')
+            console.log('New Filters! do something here', e.detail)
         })
 
         controller.addEventListener('addPayment', e => {
-            console.log('New Payment! do something here')
+            console.log('New Payment! do something here', e.detail)
         })
     }
 

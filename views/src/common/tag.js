@@ -1,8 +1,10 @@
 const template = document.createElement('template')
 template.innerHTML = `
+<section>
 <div class="light" id="tag">
     <section id="text"></section>
 </div>
+</section>
 <style>
 :host {
 
@@ -52,13 +54,15 @@ class Tag extends HTMLElement {
             case 'theme':
                 {
                     let tag = this.root.querySelector('#tag')
-                    tag.setAttribute('class', name)
+                    if(tag === null) break;
+                    tag.setAttribute('class', newValue)
                     break;
                 }
             case 'text':
                 {
                     let text = this.root.querySelector('#text')
-                    text.textContent = name;
+                    if(text === null) break;
+                    text.textContent = newValue;
                     break;
                 }
             default:
