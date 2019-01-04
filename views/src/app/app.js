@@ -89,9 +89,6 @@ class PayManagerApp extends HTMLElement {
         let payments = this.getPayments()
         let categories = this.getCategories()
 
-        let recordsNode = this.root.querySelector('paym-records')
-        let controllerNode = this.root.querySelector('paym-controller')
-
         payments.then(data => {
             this.setNewRecords(this.root, data)
         })
@@ -104,6 +101,7 @@ class PayManagerApp extends HTMLElement {
     setNewRecords(node, payments) {
         let recordsFound = node.querySelector('#recordsFound')
         let records = node.querySelector('paym-records')
+        
         recordsFound.textContent = payments.length
         records.setAttribute('payments', JSON.stringify(payments))
     }
