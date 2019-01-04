@@ -20,7 +20,8 @@ template.innerHTML = `
 </section>
 <style>
 :host {
-    display: none
+    display: none;
+    color: #9ba5b2;
 }
 
 h2 {
@@ -54,6 +55,7 @@ h2 {
     display: flex;
     flex-direction: column;
 }
+
 </style>
 `
 

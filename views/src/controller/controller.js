@@ -9,7 +9,7 @@ template.innerHTML = `
         <paym-separator></paym-separator>
         <input type="text" id="anyFilter" placeholder="Filter by any property">
         <paym-separator></paym-separator>
-        <paym-tag id="showExtendedFilters" theme="fillGrey" text="Extended Filters"></paym-tag>
+        <paym-tag id="showExtendedFilters" theme="fillGrey" text="extended filters"></paym-tag>
     </section>
 </section>
 
