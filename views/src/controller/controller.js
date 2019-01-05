@@ -1,16 +1,12 @@
 const template = document.createElement('template')
 template.innerHTML = `
 <section id="controller">
-    <section>
-        <div id="addPayment">Add Payment</div>
-        <paym-separator></paym-separator>
-    </section>
-    <section>
-        <paym-separator></paym-separator>
-        <input type="text" id="anyFilter" placeholder="Filter by any property">
-        <paym-separator></paym-separator>
+        <div id="addPayment"><img src="/img/add.png"><div>add payment</div></div>
+        <div class="any-filter">
+            <img src="/img/search.png">
+            <input type="text" id="anyFilter" placeholder="Filter by any property">
+         </div>
         <paym-tag id="showExtendedFilters" theme="fillGrey" text="extended filters"></paym-tag>
-    </section>
 </section>
 
 <paym-extended-filters></paym-extended-filters>
@@ -23,15 +19,60 @@ paym-separator {
 
 #controller {
     background-color: white;
-    height: 3em;
     padding: 1em;
+    display: grid;
+    grid-template-columns: 20% 45% 20% 15%;
+    grid-template-areas: "add-payment . any-filter extended-filters-button";
+    place-items: center;
 }
 
-section {
+#addPayment {
+    color: #a1c4ff;
+    text-transform: uppercase;
+    grid-area: add-payment;
+    justify-self: start;
+    padding: 1em;
+    border-right: 1px solid #d2ddeb;
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
 }
+
+#addPayment:hover {
+    color: #779cdb;
+}
+
+#addPayment img {
+    margin-right: 0.3em;
+}
+
+
+.any-filter {
+    grid-area: any-filter;
+    justify-self: end;
+    padding: 1em;
+    border-right: 1px solid #d2ddeb;
+    border-left: 1px solid #d2ddeb;
+    display: flex;
+    flex-direction: row;
+}
+
+.any-filter input {
+    border: none;
+}
+
+.any-filter img {
+    margin-right: 0.3em;
+}
+
+
+paym-tag {
+    grid-area: extended-filters-button;
+    justify-self: end;
+}
+
+
 </style>
 `
 
