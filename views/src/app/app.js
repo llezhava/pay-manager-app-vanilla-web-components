@@ -25,6 +25,12 @@ template.innerHTML = `
    border: 1px solid black;
 }
 
+#recordsTitle {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #45617e;
+}
+
 #data {
     margin-top: 2em;
     display: grid;
@@ -37,7 +43,7 @@ template.innerHTML = `
     grid-row-end: 1;
     grid-column-start: 1;
     grid-column-end: 1;
-    margin-bottom: 1em;
+    margin-bottom: 0.3em;
 }
 
 .item-2 {

@@ -19,8 +19,6 @@ template.innerHTML = `
 
 #recordsList {
     height: 650px;
-    padding-right: 1em;
-    padding-left: 1em;
     overflow: scroll;
     background-color: white;
 }
