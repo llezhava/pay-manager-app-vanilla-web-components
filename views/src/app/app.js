@@ -21,7 +21,7 @@ template.innerHTML = `
    display: flex;
    flex-direction: column;
    justify-content: center;
-   width: 1200px;
+   max-width: 1200px;
    border: 1px solid black;
 }
 
