@@ -15,7 +15,6 @@ div {
     border: 0.1em solid #a1c4ff;
     border-radius: 1.3em;
     padding: 0.5em;
-    margin: 0.5em;
     display: flex;
     justify-content: center;
 }
