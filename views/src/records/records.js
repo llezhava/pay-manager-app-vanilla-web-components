@@ -3,8 +3,8 @@ template.innerHTML = `
 <div id="records">
     <section id="recordsList"></section>
     <section id="aggregator">
-        <span>Total: </span>
-        <span id="sumValue"></span>
+        <div>Total: </div>
+        <div id="sumValue"></div>
     </section>
 </div>
 <style>
@@ -19,12 +19,19 @@ template.innerHTML = `
 
 #recordsList {
     height: 650px;
-    overflow: scroll;
+    overflow-y: scroll;
     background-color: white;
 }
 #aggregator {
+    padding: 1em;
     background-color: #a1c4ff;
     height: 3em;
+    color: white;
+    text-align: right;
+}
+
+#sumValue {
+    font-size: 1.5em;
 }
 
 </style>

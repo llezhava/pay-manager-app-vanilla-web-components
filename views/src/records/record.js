@@ -19,7 +19,7 @@ template.innerHTML = `
 
 #record {
     color: #45617e;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #a1c4ff;
     padding: 1em;
     display: grid;
     grid-template-columns: auto auto;
