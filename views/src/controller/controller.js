@@ -2,11 +2,13 @@ const template = document.createElement('template')
 template.innerHTML = `
 <section id="controller">
         <div id="addPayment"><img src="/img/add.png"><div>add payment</div></div>
-        <div class="any-filter">
+        <div id="any-filter">
             <img src="/img/search.png">
             <input type="text" id="anyFilter" placeholder="Filter by any property">
          </div>
-        <paym-tag id="showExtendedFilters" theme="fillGrey" text="extended filters"></paym-tag>
+        <div id="extended-filters-button">
+            <paym-tag id="showExtendedFilters" theme="fillGrey" text="extended filters"></paym-tag>
+        </div>
 </section>
 
 <paym-extended-filters></paym-extended-filters>
@@ -21,18 +23,19 @@ paym-separator {
     background-color: white;
     padding: 1em;
     display: grid;
-    grid-template-columns: 15em auto auto 10em;
+    grid-template-columns: 15em auto auto 12em;
     grid-template-areas: "add-payment . any-filter extended-filters-button";
     place-items: center;
 }
 
 #addPayment {
-    color: #a1c4ff;
-    text-transform: uppercase;
     grid-area: add-payment;
     justify-self: start;
+    height: 2em;
     padding: 1em;
-    border-right: 1px solid #d2ddeb;
+    border-left: 1px solid #d2ddeb;
+    color: #a1c4ff;
+    text-transform: uppercase;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -48,30 +51,34 @@ paym-separator {
 }
 
 
-.any-filter {
+#any-filter {
     grid-area: any-filter;
     justify-self: end;
+    height: 2em;
     padding: 1em;
-    border-right: 1px solid #d2ddeb;
     border-left: 1px solid #d2ddeb;
     display: flex;
     flex-direction: row;
+    align-items: center;
 }
 
-.any-filter input {
+#any-filter input {
     border: none;
 }
 
-.any-filter img {
+#any-filter img {
     margin-right: 0.3em;
 }
 
-
-paym-tag {
+#extended-filters-button {
     grid-area: extended-filters-button;
     justify-self: end;
+    height: 2em;
+    padding: 1em;
+    border-left: 1px solid #d2ddeb;
+    display: flex;
+    align-items: center;
 }
-
 
 </style>
 `

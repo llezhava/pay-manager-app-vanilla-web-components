@@ -22,6 +22,7 @@ template.innerHTML = `
 #chart {
     display: flex;
     align-items: flex-end;
+    justify-content: stretch;
     height: 300px;
 }
  </style>

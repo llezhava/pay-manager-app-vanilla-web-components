@@ -5,15 +5,13 @@ template.innerHTML = `
          <div class="title">Filter by category</div>
          <section id="categories"></section>
     </section>
-    <paym-separator></paym-separator>
     <section id="byDate">
-    <div class="title">Filter by date</div>
+        <div class="title">Filter by date</div>
         <input type="date" id="fromDate" placeholder="from">
         <input type="date" id="toDate" placeholder="to">
     </section>
-    <paym-separator></paym-separator>
     <section id="byAmount">
-    <div class="title">Filter by amount</div>
+        <div class="title">Filter by amount</div>
         <input type="number" id="fromAmount" placeholder="from">
         <input type="number" id="toAmount" placeholder="to">
     </section>
@@ -37,6 +35,9 @@ template.innerHTML = `
     margin: 0.2em;
 }
 
+#byCategory {
+    border-left: 1px solid #d2ddeb;
+}
 
 #categories {
     display: flex;
@@ -44,9 +45,22 @@ template.innerHTML = `
     flex-wrap: wrap;
 }
 
+#byDate {
+
+}
+
 #byDate, #byAmount {
+    border-left: 1px solid #d2ddeb;
     display: flex;
     flex-direction: column;
+}
+
+input {
+    margin: 0.5em;
+}
+
+paym-tag {
+    margin: 0.5em;
 }
 
 </style>

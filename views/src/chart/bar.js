@@ -8,12 +8,16 @@ template.innerHTML = `
 
 <style>
 
+:host {
+    width: 3em;
+}
+
 #bar {
     font-size: 1em;
     text-align: center;
     color: #45617e;
+ 
     margin: 0.1em;
-    width: 2em;
     display: flex;
     flex-direction: column;
     justify-content: center;

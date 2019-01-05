@@ -35,7 +35,7 @@ template.innerHTML = `
 #data {
     margin-top: 2em;
     display: grid;
-    grid-template-columns: auto auto 28em;
+    grid-template-columns: auto auto 30em;
     grid-column-gap: 2%;
 }
 
