@@ -115,7 +115,6 @@ class Record extends HTMLElement {
                 break;
             }
         }
-        // console.log(`Changed ${name}`, {oldValue, newValue})
     }
 
 

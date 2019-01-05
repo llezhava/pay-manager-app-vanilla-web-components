@@ -22,6 +22,7 @@ template.innerHTML = `
    flex-direction: column;
    justify-content: center;
    max-width: 1200px;
+   min-width: 950px;
    border: 1px solid black;
 }
 
@@ -34,7 +35,7 @@ template.innerHTML = `
 #data {
     margin-top: 2em;
     display: grid;
-    grid-template-columns: 30% auto auto;
+    grid-template-columns: auto auto 28em;
     grid-column-gap: 2%;
 }
 
