@@ -75,6 +75,18 @@ class RecordsContainer extends HTMLElement {
         record.setAttribute('category', payment.category)
         record.setAttribute('date', payment.date)
         record.setAttribute('comment', payment.comment)
+
+        record.addEventListener('click', e => {
+            let record = e.target
+
+            let isExpanded = record.getAttribute('isextended') === 'true'
+
+            if(isExpanded) {
+                record.setAttribute('isextended', 'false')
+            } else {
+                record.setAttribute('isextended', 'true')
+            }
+        })
         return record
     }
 
@@ -100,7 +112,6 @@ class RecordsContainer extends HTMLElement {
         if (Array.isArray(state.payments)) {
             state.payments.forEach(payment => {
                 let pmNode = this.createRecord(payment)
-                // console.log('Appending', payment)
                 records.appendChild(pmNode)
             })
 

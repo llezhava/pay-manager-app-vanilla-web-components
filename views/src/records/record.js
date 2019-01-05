@@ -2,7 +2,7 @@ import { format, formatDistance, formatRelative, subDays } from 'date-fns'
 
 const template = document.createElement('template');
 template.innerHTML = `
-<section id="record">
+<section id="record" class="">
     <div id="title" class="title">Title</div>
     <paym-tag id="category"></paym-tag>
     <div id="paidOn" class="grey-font">Current Date</div>
@@ -29,7 +29,6 @@ template.innerHTML = `
     "category amount"
     "comment comment"
 }
-
 
 #title {
     font-size: 1.3em;
@@ -64,7 +63,16 @@ template.innerHTML = `
     font-size: 2em;
 }
 
+.extended {
+    background-color: #f3f4f8;
+}
+
+.extended #comment-section {
+    display: block;
+}
+
 #comment-section {
+    display: none;
     font-size: 1em;
     grid-area: comment;
     margin-top: 1.3em;
@@ -92,6 +100,23 @@ class Record extends HTMLElement {
         });
     }
 
+    static get observedAttributes() {
+        return ['isextended'];
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        switch(name) {
+            case 'isextended': {
+                let record = this.root.querySelector('#record')
+                console.log('Changed Attribute!', record)
+                if(record === null) break;
+                if(newValue === 'true') record.setAttribute('class', 'extended')
+                else record.setAttribute('class', '')
+                break;
+            }
+        }
+        // console.log(`Changed ${name}`, {oldValue, newValue})
+    }
 
 
     connectedCallback() {
@@ -110,8 +135,7 @@ class Record extends HTMLElement {
         node.querySelector('#title').innerText = title
         node.querySelector('#amount').innerText = `-${amount}`
         node.querySelector('#category').setAttribute('text', category)
-        let newDate = format(date, '[on] dddd, DD MMMM YYYY')
-        node.querySelector('#paidOn').innerText = newDate
+        node.querySelector('#paidOn').innerText = format(date, '[on] dddd, DD MMMM YYYY')
         node.querySelector('#comment').innerText = comment
 
         this.root.appendChild(node)

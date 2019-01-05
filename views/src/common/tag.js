@@ -79,14 +79,12 @@ class Tag extends HTMLElement {
         let value = this.getAttribute('value')
         let text = this.getAttribute('text')
         let theme = this.getAttribute('theme')
-        console.log(node)
 
         let tag = node.querySelector('#tag')
         let textNode = node.querySelector('#text')
         tag.setAttribute('class', theme)
         textNode.textContent = text
 
-        console.log(node)
     }
 
     render() {
