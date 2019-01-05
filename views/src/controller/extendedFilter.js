@@ -37,6 +37,7 @@ template.innerHTML = `
 
 #byCategory {
     border-left: 1px solid #d2ddeb;
+    padding-left: 1em;
 }
 
 #categories {
@@ -51,6 +52,7 @@ template.innerHTML = `
 
 #byDate, #byAmount {
     border-left: 1px solid #d2ddeb;
+    padding-left: 1em;
     display: flex;
     flex-direction: column;
 }
