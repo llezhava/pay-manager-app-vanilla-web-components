@@ -1,5 +1,6 @@
 const template = document.createElement('template')
 template.innerHTML = `
+<section id="container">
 <div id="head">
     <div>add new payment</div>
     <img id="closeForm" src="/img/close.png" width="15px" height="17px">
@@ -39,24 +40,36 @@ template.innerHTML = `
 
 </form>
 </section>
+</section>
 
 <style>
 :host {
     display: none;
-    position: fixed; /* Stay in place */
+    top: 0;
+    left: 0;
+    position: absolute; /* Stay in place */
     z-index: 1; /* Sit on top */
-    left: 35%;
-    top: 20%;
-    width: 25em; /* Full width */
-    height: 33em; /* Full height */
-    background-color: white /* Fallback color */
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color:rgba(41,45,75,0.5);
+}
+
+#container {
+    background-color: white;
+    position: relative;
+    top: 25%;
+    left: 25%;
+    width: 35em;
 }
 
 #addNewPayment {
     padding: 1em;
+    padding-left: 2em;
+    padding-right: 2em;
     color: #a1c4ff;
     display: flex;
     flex-direction: column;
+    background-color: white;
 }
 
 #newPaymentForm {
@@ -103,6 +116,7 @@ template.innerHTML = `
     justify-content: space-between;
     color: black;
     text-transform: uppercase;
+    font-weight: bold;
 }
 
 input, select, #comment {
