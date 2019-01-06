@@ -123,6 +123,7 @@ input, select, #comment {
     font-family:inherit;
     box-sizing: border-box;
     border: 1px solid #a1c4ff;
+    border-radius: 0.2em;
     height: 3em;
     font-size: 1.2em;
     text-align: center;
