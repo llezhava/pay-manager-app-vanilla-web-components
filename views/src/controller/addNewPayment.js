@@ -2,7 +2,7 @@ const template = document.createElement('template')
 template.innerHTML = `
 <div id="head">
     <div>add new payment</div>
-    <button id="closeForm">Close</button>
+    <img id="closeForm" src="/img/close.png" width="15px" height="17px">
 </div>
 
 <section id="addNewPayment">
@@ -31,7 +31,7 @@ template.innerHTML = `
 
     <div class="comment">
         <legend>Comment</legend>
-        <input type="text" id="comment">
+        <textarea id="comment" cols="40" rows="5"></textarea>
     </div>
     <div class="submit">
         <input type="submit" id="submit-button" value="Create">
@@ -45,16 +45,15 @@ template.innerHTML = `
     display: none;
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
-    left: 50%;
+    left: 35%;
     top: 20%;
     width: 25em; /* Full width */
-    height: 30em; /* Full height */
+    height: 33em; /* Full height */
     background-color: white /* Fallback color */
 }
 
 #addNewPayment {
-    padding: 2em;
-    background-color: #097500;
+    padding: 1em;
     color: #a1c4ff;
     display: flex;
     flex-direction: column;
@@ -63,7 +62,7 @@ template.innerHTML = `
 #newPaymentForm {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto auto auto;
     grid-gap: 1em;
     grid-template-areas:
     "title title amount"
@@ -98,6 +97,7 @@ template.innerHTML = `
 }
 
 #head {
+    padding: 0.5em;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -105,9 +105,15 @@ template.innerHTML = `
     text-transform: uppercase;
 }
 
-
-input, select {
+input[type=date] {
     box-sizing: border-box;
+    font-size: 1.2em;
+    height: 3em;
+}
+
+input, select, #comment {
+    box-sizing: border-box;
+    border: 1px solid #a1c4ff;
     height: 3em;
     font-size: 1.2em;
     text-align: center;
@@ -115,11 +121,23 @@ input, select {
     width: 100%;
 }
 
+#comment {
+    height: 6em;
+    padding: 0.5em;
+    text-align: left;
+}
+
 
 #submit-button {
     background-color: #a1c4ff;
+    border: 0px solid;
     color: #FFFFFF;
-    padding: 0.5em;
+    text-transform: uppercase;
+    border-radius: 5%;
+    font-family: 'Open Sans Light';
+    font-size: 1em;
+    height: 2em;
+
 }
 </style>
 `
@@ -164,7 +182,7 @@ class AddNewPayment extends HTMLElement {
 
             let emptyValue = document.createElement('option')
             emptyValue.setAttribute('value', '')
-            emptyValue.innerText = 'Select Category'
+            emptyValue.innerText = ''
             selectNode.appendChild(emptyValue)
 
             categories.forEach(cat => {
