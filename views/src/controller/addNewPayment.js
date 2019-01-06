@@ -219,20 +219,25 @@ class AddNewPayment extends HTMLElement {
 
         const submitButton = node.querySelector('#submit-button')
 
-        submitButton.addEventListener('submit', e => {
+        submitButton.addEventListener('click', e => {
             e.preventDefault()
 
             let formData = {
-                title: e.target['title'].value,
-                amount: e.target['amount'].value,
-                category: e.target['category'].value,
-                date: e.target['date'].value,
-                comment: e.target['comment'].value
+                title: this.root.querySelector('#title').value,
+                amount: this.root.querySelector('#amount').value,
+                category: this.root.querySelector('#category').value,
+                date: this.root.querySelector('#date').value,
+                comment: this.root.querySelector('#comment').value
             }
+
+            console.log('Submit!', formData)
+
 
             this.dispatchEvent(new CustomEvent('addPayment', {
                 detail: formData
             }))
+
+            this.style.display = 'none'
         })
 
     }

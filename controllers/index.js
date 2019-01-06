@@ -11,6 +11,7 @@ async function categories(req, res) {
 
 async function records(req, res) {
     let filters = req.body
+    console.log('Get Payments!', filters)
     const options = {
         raw: true,
         attributes: ['title', 'amount', 'date', 'comment'],
@@ -34,6 +35,13 @@ async function records(req, res) {
     res.json(newRecords)
 }
 
+async function addRecord(req, res) {
+    let item = req.body
+    console.log('Item: ', item)
+
+    res.json({success: true})
+}
+
 module.exports = {
-    categories, records
+    categories, records, addRecord
 }

@@ -70,7 +70,11 @@ class PayManagerApp extends HTMLElement {
         this.root = this.attachShadow({
             'mode': 'open'
         });
-        this.filters = {}
+
+        this.filters = {
+            title: 'asdasdasd',
+            amount: '925'
+        }
     }
 
     connectedCallback() {
@@ -78,7 +82,7 @@ class PayManagerApp extends HTMLElement {
     }
 
     getCategories() {
-        return fetch(`${url}/categories`)
+        return fetch(`${url}/get/categories`)
             .then(data => data.json())
             .catch(err => {
                 console.log('Could not update categories!', err)
@@ -86,27 +90,44 @@ class PayManagerApp extends HTMLElement {
             })
     }
 
-    getPayments() {
-        return fetch(`${url}/payments`, {
-            method: 'post',
-                body: {
-                    filters: JSON.stringify(this.filters)
-                }
+    getRecords(filters) {
+        return fetch(`${url}/get/records`, {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(filters)
             })
             .then(data => data.json())
+            .then(records => {
+                this.setNewRecords(this.root, records)
+            })
             .catch(err => {
                 console.log('Could not get payments!', err)
                 return []
             })
     }
 
-    getInitialData() {
-        let payments = this.getPayments()
-        let categories = this.getCategories()
+    addRecord(data) {
+        return fetch(`${url}/add/record`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(data => data.json())
+            .catch(err => {
+                console.log('Could not Add record!', err)
+                return []
+            })
+    }
 
-        payments.then(data => {
-            this.setNewRecords(this.root, data)
-        })
+
+
+    getInitialData() {
+        let payments = this.getRecords(this.filters)
+        let categories = this.getCategories()
 
         categories.then(data => {
             this.setNewCategories(this.root, data)
@@ -116,7 +137,7 @@ class PayManagerApp extends HTMLElement {
     setNewRecords(node, payments) {
         let recordsFound = node.querySelector('#recordsFound')
         let records = node.querySelector('paym-records')
-        
+
         recordsFound.textContent = payments.length
         records.setAttribute('payments', JSON.stringify(payments))
     }
@@ -133,10 +154,16 @@ class PayManagerApp extends HTMLElement {
         let categoryChart = node.querySelector('#perCategory')
 
         controller.addEventListener('newFilters', e => {
-            console.log('New Filters! do something here', e.detail)
+            this.filters = e.detail
+            this.getRecords(this.filters)
         })
 
         controller.addEventListener('addPayment', e => {
+            let data = e.detail
+            this.addRecord(data)
+                .then(() => {
+
+                })
             console.log('New Payment! do something here', e.detail)
         })
     }
