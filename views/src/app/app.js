@@ -21,9 +21,8 @@ template.innerHTML = `
    display: flex;
    flex-direction: column;
    justify-content: center;
-   max-width: 1200px;
+   width: 1200px;
    min-width: 950px;
-   border: 1px solid black;
 }
 
 #recordsTitle {
@@ -35,7 +34,7 @@ template.innerHTML = `
 #data {
     margin-top: 2em;
     display: grid;
-    grid-template-columns: auto auto 30em;
+    grid-template-columns: 35em 1fr 30em;
     grid-column-gap: 2%;
 }
 
