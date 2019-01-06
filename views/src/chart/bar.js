@@ -16,7 +16,6 @@ template.innerHTML = `
     font-size: 1em;
     text-align: center;
     color: #45617e;
- 
     margin: 0.1em;
     display: flex;
     flex-direction: column;

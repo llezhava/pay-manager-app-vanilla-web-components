@@ -28,6 +28,10 @@ template.innerHTML = `
  </style>
 `
 
+// TODO for categories chart:
+// When hovered bar, it will show full title of category somewhere
+// i.e into the top right place
+
 let mockData = [
     {name: 'Jan', value: 300, max: 395},
     {name: 'Feb', value: 225, max: 395},
