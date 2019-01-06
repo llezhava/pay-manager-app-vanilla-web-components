@@ -17,6 +17,7 @@ div {
     padding: 0.5em;
     display: flex;
     justify-content: center;
+    cursor: default;
 }
 
 .light {

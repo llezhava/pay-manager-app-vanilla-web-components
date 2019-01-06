@@ -51,6 +51,7 @@ template.innerHTML = `
 }
 
 #byDate, #byAmount {
+    flex-basis: 20%;
     border-left: 1px solid #d2ddeb;
     padding-left: 1em;
     display: flex;
@@ -58,7 +59,13 @@ template.innerHTML = `
 }
 
 input {
+    font-family:inherit;
+    color: #9ba5b2;
     margin: 0.5em;
+    padding: 0.5em;
+    border: 1px solid #bec2da;
+    border-radius: 0.2em;
+    width: 85%;
 }
 
 paym-tag {

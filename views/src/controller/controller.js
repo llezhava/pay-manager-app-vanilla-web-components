@@ -40,6 +40,7 @@ paym-separator {
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    cursor: default;
 }
 
 #addPayment:hover {
@@ -78,6 +79,10 @@ paym-separator {
     border-left: 1px solid #d2ddeb;
     display: flex;
     align-items: center;
+}
+
+.any-filter input {
+    font-family: inherit;
 }
 
 </style>
