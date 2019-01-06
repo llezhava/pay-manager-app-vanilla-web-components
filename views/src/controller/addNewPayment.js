@@ -105,13 +105,8 @@ template.innerHTML = `
     text-transform: uppercase;
 }
 
-input[type=date] {
-    box-sizing: border-box;
-    font-size: 1.2em;
-    height: 3em;
-}
-
 input, select, #comment {
+    font-family:inherit;
     box-sizing: border-box;
     border: 1px solid #a1c4ff;
     height: 3em;
