@@ -134,6 +134,7 @@ input, select, #comment {
     height: 6em;
     padding: 0.5em;
     text-align: left;
+    resize: none;
 }
 
 
