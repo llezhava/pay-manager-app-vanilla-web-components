@@ -151,8 +151,8 @@ input, select, #comment {
 
 }
 
-.error {
-
+.invalid {
+    border: 1px solid red;
 }
 
 #submit-button:hover {
