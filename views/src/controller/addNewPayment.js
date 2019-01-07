@@ -58,7 +58,7 @@ template.innerHTML = `
     background-color: white;
     position: relative;
     top: 25%;
-    left: 25%;
+    left: 39%;
     width: 35em;
 }
 
