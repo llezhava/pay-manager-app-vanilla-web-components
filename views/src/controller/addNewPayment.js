@@ -221,6 +221,10 @@ class AddNewPayment extends HTMLElement {
     }
 
     submit() {
+        let newDivs = [{
+            div: this.root.querySelector('#title'),
+            name: 'title'
+        }]
         let divs = {
             title: this.root.querySelector('#title'),
             amount: this.root.querySelector('#amount'),
@@ -231,7 +235,7 @@ class AddNewPayment extends HTMLElement {
 
         let validator = this.validator(divs)
 
-        if(validator.isValid) {
+        if (validator.isValid) {
 
             this.dispatchEvent(new CustomEvent('addPayment', {
                 detail: Object.keys(divs).map(name => divs[name].value)
@@ -245,30 +249,36 @@ class AddNewPayment extends HTMLElement {
     }
 
     validator(divs) {
-        let arr = Object.keys(divs).map(name => divs[name])
-
-        this.mark(arr, 'valid')
-
         let notValidDivs = Object.keys(divs).map(name => {
             let div = divs[name]
-            if(!this.isValid(div)) return div
-            else {}
-        }).filter(i => i !== undefined)
-        
+            let isValid = this.isValid(div)
+            if(isValid) {
+                this.mark([div], 'valid')
+            } else {
+                this.mark([div], 'invalid')
+                return div
+            }
+        })
+        .filter(i => i !== undefined)
+
         let isValid = !notValidDivs.length > 0
 
-        if(isValid) return {isValid: true}
-        else return {isValid: false, notValidDivs} 
+        if (isValid) return {
+            isValid: true
+        }
+        else return {
+            isValid: false,
+            notValidDivs
+        }
     }
 
     isValid(input) {
         let isRequired = input.getAttribute('required') !== null
-        if(isRequired & input.value === '') return false
+        if (isRequired & input.value === '') return false
         else return true
     }
 
     mark(divs, status) {
-        console.log(divs)
         divs.forEach(div => {
             div.setAttribute('class', status)
         })
