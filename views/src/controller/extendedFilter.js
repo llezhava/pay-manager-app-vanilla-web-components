@@ -12,8 +12,8 @@ template.innerHTML = `
     </section>
     <section id="byAmount">
         <div class="title">Filter by amount</div>
-        <input type="number" id="fromAmount" placeholder="from">
-        <input type="number" id="toAmount" placeholder="to">
+        <input type="text" id="fromAmount" placeholder="from">
+        <input type="text" id="toAmount" placeholder="to">
     </section>
 </section>
 <style>
@@ -123,8 +123,8 @@ class ExtendedFilters extends HTMLElement {
         }
         const filters = {
             categories,
-            startDate: this.root.querySelector('#fromDate').valueAsDate,
-            endDate: this.root.querySelector('#toDate').valueAsDate,
+            fromDate: this.root.querySelector('#fromDate').valueAsDate,
+            toDate: this.root.querySelector('#toDate').valueAsDate,
             fromAmount: this.root.querySelector('#fromAmount').value,
             toAmount: this.root.querySelector('#toAmount').value
         }

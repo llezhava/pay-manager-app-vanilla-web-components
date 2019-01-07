@@ -72,10 +72,16 @@ class PayManagerApp extends HTMLElement {
         });
 
         this.filters = {
-            title: 'asdasdasd',
-            amount: '925'
         }
     }
+
+    // let testFilters = {
+//     categories: ['5', '4'],
+//     startDate: '2018-12-30T00:00:00.000Z',
+//     endDate: '2019-02-02T00:00:00.000Z',
+//     fromAmount: '25',
+//     toAmount: '35'
+// }
 
     connectedCallback() {
         this.render()

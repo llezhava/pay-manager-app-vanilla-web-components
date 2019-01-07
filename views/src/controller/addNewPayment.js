@@ -152,6 +152,13 @@ input, select, #comment {
 }
 </style>
 `
+// TODO: Consider the following idea
+/*
+Maybe I shall post new item to the server from here directly?
+It will make the flow & validation easier.
+I can implement validation into the model directly
+Send then event to the main after successfull add.
+*/
 
 class AddNewPayment extends HTMLElement {
     constructor() {

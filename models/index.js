@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const operatorsAliases = require('./aliases')
 const sequelize = new Sequelize({
  database: 'pay-manager',
  username: 'root',
@@ -7,7 +8,7 @@ const sequelize = new Sequelize({
  host: 'localhost',
  logging: false,
  port: 3306,
- operatorsAliases: false,
+ operatorsAliases,
  pool: {
      max: 100,
      min: 0,
