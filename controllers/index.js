@@ -10,41 +10,31 @@ function isValid(val) {
     return val !== null && val !== undefined && val !== ""
 }
 
-function hasCategories(val) {
-    if (Array.isArray(val)) {
-        return {
-            amount: {
-                $lte: Number(filters.toAmount)
-            }
-        }
-    } else {
-        return true
-    }
-}
-
 async function categories(req, res) {
     let categories = await models.Category.findAll({
         attributes: ['id', 'name'],
         raw: true
     })
-    console.log(categories)
+
     res.json(categories)
 }
 
 function getOptions(filters) {
-    console.log(filters.categories)
+    console.log(filters)
     let fromAmount = isValid(filters.fromAmount) ? {
             amount: {
                 $gte: Number(filters.fromAmount)
             }
         } :
         undefined
+
     let toAmount = isValid(filters.toAmount) ? {
             amount: {
                 $lte: Number(filters.toAmount)
             }
         } :
         undefined
+
     let fromDate = isValid(filters.fromDate) ? {
             date: {
                 $gte: format(filters.fromDate, ['YYYY-MM-DD'])
@@ -61,16 +51,39 @@ function getOptions(filters) {
 
     let categories = getCategories(filters.categories)
 
+    let any = getAny(filters.any)
 
-    let andFilters = [fromAmount, toAmount, fromDate, toDate, categories].filter(i => i !== undefined)
+
+    let andFilters = [fromAmount, toAmount, fromDate, toDate, categories, any].filter(i => i !== undefined)
 
     return andFilters
+}
+
+// TODO:
+// 1) Title
+// 2) Amount
+// 3) Comment
+// 4) Tag?
+function getAny(any) {
+    if (isValid(any)) {
+        return {
+            $or: [
+                isValid(Number(any)) ? {amount: any} : undefined,
+                {title: {$like: `%${any}%`}},
+                {comment: {$like: `%${any}%`}}
+            ].filter(i => i !== undefined)
+        }
+    } else {
+        return undefined
+    }
 }
 
 function getCategories(list) {
     if (Array.isArray(list) && list.length > 0) {
         return {
-            categoryId: {$or: list}
+            categoryId: {
+                $or: list
+            }
         }
     } else {
         return undefined

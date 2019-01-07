@@ -162,7 +162,7 @@ class Controller extends HTMLElement {
 
         anyFilter.addEventListener('change', e => {
             this.filters = Object.assign({}, this.filters, {
-                anyFilter: e.target.value
+                any: e.target.value
             })
             this.dispatchEvent(new CustomEvent('newFilters', {
                 detail: this.filters
