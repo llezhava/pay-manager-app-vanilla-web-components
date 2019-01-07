@@ -150,6 +150,14 @@ input, select, #comment {
     height: 2em;
 
 }
+
+.error {
+
+}
+
+#submit-button:hover {
+    background-color: #779cdb;
+}
 </style>
 `
 // TODO: Consider the following idea
@@ -212,6 +220,60 @@ class AddNewPayment extends HTMLElement {
         }
     }
 
+    submit() {
+        let divs = {
+            title: this.root.querySelector('#title'),
+            amount: this.root.querySelector('#amount'),
+            category: this.root.querySelector('#category'),
+            date: this.root.querySelector('#date'),
+            comment: this.root.querySelector('#comment')
+        }
+
+        let validator = this.validator(divs)
+
+        if(validator.isValid) {
+
+            this.dispatchEvent(new CustomEvent('addPayment', {
+                detail: Object.keys(divs).map(name => divs[name].value)
+            }))
+
+            this.style.display = 'none'
+
+        } else {
+            this.mark(validator.notValidDivs, 'invalid')
+        }
+    }
+
+    validator(divs) {
+        let arr = Object.keys(divs).map(name => divs[name])
+
+        this.mark(arr, 'valid')
+
+        let notValidDivs = Object.keys(divs).map(name => {
+            let val = divs[name].value
+            if(!this.isValid(divs[name])) return divs[name]
+            else []
+        }).filter(i => i !== undefined)
+        
+        let isValid = !notValidDivs.length > 0
+
+        if(isValid) return {isValid: true}
+        else return {isValid: false, notValidDivs} 
+    }
+
+    isValid(input) {
+        let isRequired = input.getAttribute('required') !== null
+        if(isRequired & input.value === '') return false
+        else return true
+    }
+
+    mark(divs, status) {
+        console.log(divs)
+        divs.forEach(div => {
+            div.setAttribute('class', status)
+        })
+    }
+
     configure(node) {
         const closeButton = node.querySelector('#closeForm')
 
@@ -228,23 +290,7 @@ class AddNewPayment extends HTMLElement {
 
         submitButton.addEventListener('click', e => {
             e.preventDefault()
-
-            let formData = {
-                title: this.root.querySelector('#title').value,
-                amount: this.root.querySelector('#amount').value,
-                category: this.root.querySelector('#category').value,
-                date: this.root.querySelector('#date').value,
-                comment: this.root.querySelector('#comment').value
-            }
-
-            console.log('Submit!', formData)
-
-
-            this.dispatchEvent(new CustomEvent('addPayment', {
-                detail: formData
-            }))
-
-            this.style.display = 'none'
+            this.submit()
         })
 
     }
