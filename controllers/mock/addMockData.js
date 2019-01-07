@@ -1,4 +1,4 @@
-const models = require('./../models')
+const models = require('../../models')
 const categories = ['Food', 'Gasoline', 'Entertainment', 'Mobile Services', 'Taxes']
 const records = require('./mockRecords')
 
