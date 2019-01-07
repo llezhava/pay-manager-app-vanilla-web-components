@@ -167,8 +167,9 @@ class PayManagerApp extends HTMLElement {
         controller.addEventListener('addPayment', e => {
             let data = e.detail
             this.addRecord(data)
-                .then(() => {
-
+                .then((status) => {
+                    if(status.success) this.getRecords(this.filters)
+                    else console.log('Why?')
                 })
             console.log('New Payment! do something here', e.detail)
         })
