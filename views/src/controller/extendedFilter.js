@@ -185,7 +185,7 @@ class ExtendedFilters extends HTMLElement {
         const inputs = [fromDate, toDate, fromAmount, toAmount]
 
         inputs.forEach(input => {
-            input.addEventListener('change', e => {
+            input.addEventListener('focusout', e => {
                 let filters = this.getFilterValues()
                 this.dispatchEvent(new CustomEvent('newFilters', {
                     detail: filters
