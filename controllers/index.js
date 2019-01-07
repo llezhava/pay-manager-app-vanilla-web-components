@@ -19,40 +19,38 @@ async function categories(req, res) {
     res.json(categories)
 }
 
+function fromDateFilter(date) {
+
+}
 
 function getOptions(filters) {
-    console.log('Getting Options')
-    console.log(filters.fromDate)
-    console.log(new Date(filters.fromDate))
-    console.log(format(filters.fromDate, ['YYYY-MM-DD hh:mm:ss']))
     let fromAmount = isValid(filters.fromAmount) ? {
             amount: {
-                [Op.gte]: [Number(filters.fromAmount)]
+                $gte: Number(filters.fromAmount)
             }
         } :
         undefined
     let toAmount = isValid(filters.toAmount) ? {
             amount: {
-                $lte: [Number(filters.toAmount)]
+                $lte: Number(filters.toAmount)
             }
         } :
         undefined
     let fromDate = isValid(filters.fromDate) ? {
             date: {
-                $gte: [format(filters.fromDate, ['YYYY-MM-DD hh:mm:ss'])]
+                $gte: format(filters.fromDate, ['YYYY-MM-DD'])
             }
         } :
         undefined
+
     let toDate = isValid(filters.toDate) ? {
             date: {
-                [Op.lte]: [format(filters.fromDate, ['YYYY-MM-DD hh:mm:ss'])]
+                $lte: format(filters.toDate, ['YYYY-MM-DD'])
             }
         } :
         undefined
 
     let andFilters = [fromAmount, toAmount, fromDate, toDate].filter(i => i !== undefined)
-
-    console.log(`between andFilters`, andFilters)
 
     return andFilters
 }
@@ -103,6 +101,20 @@ async function addRecord(req, res) {
     res.json({
         success: true
     })
+}
+
+async function getFromDate(req, res) {
+    let date = ''
+    let options = {
+        raw: true,
+        attributes: ['date'],
+        where: {
+                date: {$gte: date}
+        }
+
+    }
+
+    let records = await models.find(options)
 }
 
 module.exports = {
