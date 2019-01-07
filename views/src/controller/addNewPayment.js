@@ -238,7 +238,10 @@ class AddNewPayment extends HTMLElement {
         if (validator.isValid) {
 
             this.dispatchEvent(new CustomEvent('addPayment', {
-                detail: Object.keys(divs).map(name => divs[name].value)
+                detail: Object.keys(divs).reduce((details, name) => {
+                    details[name] = divs[name].value
+                    return details
+                }, {})
             }))
 
             this.style.display = 'none'
@@ -250,16 +253,16 @@ class AddNewPayment extends HTMLElement {
 
     validator(divs) {
         let notValidDivs = Object.keys(divs).map(name => {
-            let div = divs[name]
-            let isValid = this.isValid(div)
-            if(isValid) {
-                this.mark([div], 'valid')
-            } else {
-                this.mark([div], 'invalid')
-                return div
-            }
-        })
-        .filter(i => i !== undefined)
+                let div = divs[name]
+                let isValid = this.isValid(div)
+                if (isValid) {
+                    this.mark([div], 'valid')
+                } else {
+                    this.mark([div], 'invalid')
+                    return div
+                }
+            })
+            .filter(i => i !== undefined)
 
         let isValid = !notValidDivs.length > 0
 

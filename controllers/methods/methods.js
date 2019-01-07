@@ -50,10 +50,29 @@ async function getRecords(req, res) {
 async function addRecord(req, res) {
     let item = req.body
     console.log('Item: ', item)
+    try {
+        await models.Record.create({
+            title: item.title,
+            amount: item.amount,
+            category: item.category,
+            date: item.date,
+            comment: item.comment
+        })
 
-    res.json({
-        success: true
-    })
+        res.json({
+            success: true
+        })
+    } catch (err) {
+        console.log('Error during add, ', err)
+
+        res.json({
+            success: false
+        })
+    }
 }
 
-module.exports = {getCategories, getRecords, addRecord}
+module.exports = {
+    getCategories,
+    getRecords,
+    addRecord
+}
