@@ -250,9 +250,9 @@ class AddNewPayment extends HTMLElement {
         this.mark(arr, 'valid')
 
         let notValidDivs = Object.keys(divs).map(name => {
-            let val = divs[name].value
-            if(!this.isValid(divs[name])) return divs[name]
-            else []
+            let div = divs[name]
+            if(!this.isValid(div)) return div
+            else {}
         }).filter(i => i !== undefined)
         
         let isValid = !notValidDivs.length > 0
