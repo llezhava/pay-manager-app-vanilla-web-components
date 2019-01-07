@@ -16,6 +16,7 @@ async function getRecords(req, res) {
         raw: true,
         attributes: ['title', 'amount', 'date', 'comment'],
         where: getFilters(filters),
+        order: [['date', 'DESC']],
         include: [{
             model: models.Category
         }]
@@ -54,7 +55,7 @@ async function addRecord(req, res) {
         await models.Record.create({
             title: item.title,
             amount: item.amount,
-            category: item.category,
+            categoryId: item.category,
             date: item.date,
             comment: item.comment
         })
