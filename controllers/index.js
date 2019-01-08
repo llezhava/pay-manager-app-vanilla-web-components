@@ -1,5 +1,5 @@
 
-const {getCategories, getRecords, addRecord} = require('./methods/methods')
+const {getCategories, getRecords, addRecord} = require('./records')
 
 module.exports = {
     getCategories,
