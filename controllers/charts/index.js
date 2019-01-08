@@ -1,37 +1,23 @@
-const models = require('../../models')
-const getFilters = require('../filters')
-const _ = require('lodash')
-
-function groupByMonths(data) {
-    console.log(data)
-}
+const getMonthData = require('./getMonthData')
+const getCategoryData = require('./getCategoryData')
 
 async function getMonthChart(req, res) {
-        let filters = req.body
-        const options = {
-            raw: true,
-            attributes: ['amount', 'date'],
-            where: getFilters(filters),
-            order: [['date', 'DESC']],
-            include: [{
-                model: models.Category
-            }]
-        }
+    let filters = req.body
 
-        let records;
+    let data = getMonthData(filters)
 
-        try {
-            records = await models.Record.findAll(options)
-        } catch (err) {
-            console.log(err)
-            records = []
-        }
-    
-        res.json(newRecords)
+    res.json(data)
 }
 
 async function getCategoryChart(req, res) {
-    
+    let filters = req.body
+
+    let data = getCategoryData(filters)
+
+    res.json(data)
 }
 
-module.exports = {getMonthChart, getCategoryChart}
+module.exports = {
+    getMonthChart,
+    getCategoryChart
+}

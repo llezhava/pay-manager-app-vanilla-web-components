@@ -114,6 +114,43 @@ class PayManagerApp extends HTMLElement {
             })
     }
 
+    getChartPerMonth(filters) {
+        return fetch(`${url}/get/chart/bymonth`, {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(filters)
+        })
+        .then(data => data.json())
+        .then(records => {
+            this.setMonthChart(this.root, records)
+        })
+        .catch(err => {
+            console.log('Could not get payments!', err)
+            return []
+        })
+    }
+
+    getChartPerCategory(filters) {
+        return fetch(`${url}/get/chart/bycategory`, {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(filters)
+        })
+        .then(data => data.json())
+        .then(records => {
+            this.setCategoryChart(this.root, records)
+        })
+        .catch(err => {
+            console.log('Could not get payments!', err)
+            return []
+        })
+    }
+
+
     addRecord(data) {
         return fetch(`${url}/add/record`, {
                 method: 'POST',
@@ -151,6 +188,16 @@ class PayManagerApp extends HTMLElement {
     setNewCategories(node, categories) {
         let controllerNode = node.querySelector('paym-controller')
         controllerNode.setAttribute('categories', JSON.stringify(categories))
+    }
+
+    setMonthChart(node, data) {
+        let _node = node.querySelector('#perMonth')
+        _node.setAttribute('data', JSON.stringify(data))
+    }
+
+    setCategoryChart(node, data) {
+        let  _node = node.querySelector('#perCategory')
+        _node.setAttribute('data', JSON.stringify(data))
     }
 
     configure(node) {
