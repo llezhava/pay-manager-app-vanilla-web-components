@@ -170,6 +170,7 @@ class PayManagerApp extends HTMLElement {
 
     getInitialData() {
         let payments = this.getRecords(this.filters)
+        let records = this.getChartPerMonth(this.filters)
         let categories = this.getCategories()
 
         categories.then(data => {

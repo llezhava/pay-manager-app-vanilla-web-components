@@ -13,10 +13,11 @@ let mockFilters = {
 }
 
 function groupByMonths(data) {
+    let by
     console.log(data)
 }
 
-function getCategoryData(filters) {
+async function getCategoryData(filters) {
     const options = {
         raw: true,
         attributes: ['amount', 'category.name'],
@@ -30,7 +31,7 @@ function getCategoryData(filters) {
     }
 
     try {
-        let data = await models.findAll(options)
+        let data = await models.Record.findAll(options)
         let grouped = grouByCategories(data)
         return grouped
     } catch (err) {
