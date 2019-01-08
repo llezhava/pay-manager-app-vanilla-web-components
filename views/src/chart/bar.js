@@ -9,7 +9,7 @@ template.innerHTML = `
 <style>
 
 :host {
-    width: 100%
+    width: 100%;
 }
 
 #bar {

@@ -13,12 +13,18 @@ function sumValues(i) {
 }
 
 function groupByCategory(data) {
-    let grouped = _.groupBy(data, 'name')
-    let dataset = _.map(grouped, sumValues)
+    let fn = _.flow([
+        data => _.groupBy(data, 'name'),
+        grouped => _.map(grouped, sumValues),
+        dataset => {
+            return {
+                max: _.maxBy(dataset, 'value').value,
+                dataset
+            }
+        }
+    ])
 
-    let max = _.maxBy(dataset, 'value').value
-
-    return {max, dataset}
+    return fn(data)
 }
 
 async function getCategoryData(filters) {

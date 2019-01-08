@@ -77,27 +77,39 @@ function mapToMonths(data) {
 }
 
 function groupByMonths(data) {
-    let byMonth = data.map(i => {
+    let datesToMonths = (data) => {
+        return _.map(data, i => {
+            return {
+                value: i.value,
+                month: getMonth(i.date)
+            }
+        })
+    }
+    let group = (byMonth) => _.groupBy(byMonth, 'month')
+
+    let monthValuesSum = (grouped) => _.map(grouped, sumValues)
+
+    let dataset = (monthValuesSum) => {
         return {
-            value: i.amount,
-            month: getMonth(i.date)
+            max: _.maxBy(monthValuesSum, 'value').value,
+            dataset: mapToMonths(monthValuesSum)
         }
-    })
-    let grouped = _.groupBy(byMonth, 'month')
+    }
 
-    let monthValuesSum = _.map(grouped, sumValues)
+    let fn = _.flow([
+        datesToMonths,
+        group,
+        monthValuesSum,
+        dataset
+    ])
 
-    let max = _.maxBy(monthValuesSum, 'value').value
-
-    let dataset = mapToMonths(monthValuesSum)
-
-    return {max, dataset}
+    return fn(data)
 }
 
 async function getMonthData(filters) {
     const options = {
         raw: true,
-        attributes: ['amount', 'date'],
+        attributes: [['amount', 'value'], 'date'],
         where: getFilters(filters),
         order: [
             ['date', 'DESC']
