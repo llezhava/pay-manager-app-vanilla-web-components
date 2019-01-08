@@ -5,65 +5,6 @@ const {
     getMonth
 } = require('date-fns')
 
-let shape = {
-    max: 0,
-    dataset: [{
-            name: 'Jan',
-            value: 0
-        },
-        {
-            name: 'Feb',
-            value: 0
-        },
-        {
-            name: 'Mar',
-            value: 0
-        },
-        {
-            name: 'Apr',
-            value: 0
-        },
-        {
-            name: 'May',
-            value: 0
-        },
-        {
-            name: 'Jun',
-            value: 0
-        },
-        {
-            name: 'Jul',
-            value: 0
-        },
-        {
-            name: 'Aug',
-            value: 0
-        },
-        {
-            name: 'Sep',
-            value: 0
-        },
-        {
-            name: 'Oct',
-            value: 0
-        },
-        {
-            name: 'Nov',
-            value: 0
-        },
-        {
-            name: 'Dec',
-            value: 0
-        }
-    ]
-}
-
-
-let mockFilters = {
-    fromAmount: 0,
-    toAmount: 9555
-}
-
 function sumValues(i) {
     return i.reduce((acc, curr) => {
         acc.value += curr.value
@@ -135,7 +76,7 @@ function mapToMonths(data) {
     return months
 }
 
-function groupByMonths(data, shape) {
+function groupByMonths(data) {
     let byMonth = data.map(i => {
         return {
             value: i.amount,
@@ -165,7 +106,7 @@ async function getMonthData(filters) {
 
     try {
         let data = await models.Record.findAll(options)
-        let grouped = groupByMonths(data, shape)
+        let grouped = groupByMonths(data)
         return grouped
     } catch (err) {
         console.log('Got error!', err)

@@ -126,6 +126,7 @@ class PayManagerApp extends HTMLElement {
     }
 
     getChartPerCategory(filters) {
+        console.log("GETTING CHART!!")
         return fetch(`${url}/get/chart/bycategory`, {
                 method: 'post',
                 headers: {
@@ -160,8 +161,10 @@ class PayManagerApp extends HTMLElement {
     }
 
     getInitialData() {
-        let payments = this.getRecords(this.filters)
-        let records = this.getChartPerMonth(this.filters)
+       this.getRecords(this.filters)
+       this.getChartPerMonth(this.filters)
+       this.getChartPerCategory(this.filters)
+
         let categories = this.getCategories()
 
         categories.then(data => {
@@ -202,6 +205,7 @@ class PayManagerApp extends HTMLElement {
             this.filters = e.detail
             this.getRecords(this.filters)
             this.getChartPerMonth(this.filters)
+            this.getChartPerCategory(this.filters)
         })
 
         controller.addEventListener('addPayment', e => {
@@ -211,6 +215,7 @@ class PayManagerApp extends HTMLElement {
                     if (status.success) {
                         this.getRecords(this.filters)
                         this.getChartPerMonth(this.filters)
+                        this.getChartPerCategory(this.filters)
                     } 
                     else console.log('Why?')
                 })

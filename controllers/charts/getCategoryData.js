@@ -2,28 +2,32 @@ const models = require('../../models')
 const getFilters = require('../filters')
 const _ = require('lodash')
 
-let shape = {
-    max: 0,
-    dataset: []
+function sumValues(i) {
+    return i.reduce((acc, curr) => {
+        acc.value += curr.value
+        return acc
+    }, {
+        name: i[0].name,
+        value: 0
+    })
 }
 
-let mockFilters = {
-    fromAmount: 0,
-    toAmount: 9555
-}
+function groupByCategory(data) {
+    let grouped = _.groupBy(data, 'name')
+    let dataset = _.map(grouped, sumValues)
 
-function groupByMonths(data) {
-    let by
-    console.log(data)
+    let max = _.maxBy(dataset, 'value').value
+
+    return {max, dataset}
 }
 
 async function getCategoryData(filters) {
     const options = {
         raw: true,
-        attributes: ['amount', 'category.name'],
+        attributes: [['amount', 'value'], 'category.name'],
         where: getFilters(filters),
         order: [
-            ['category.name', 'DESC']
+            ['categoryId', 'DESC']
         ],
         include: [{
             model: models.Category
@@ -32,7 +36,7 @@ async function getCategoryData(filters) {
 
     try {
         let data = await models.Record.findAll(options)
-        let grouped = grouByCategories(data)
+        let grouped = groupByCategory(data)
         return grouped
     } catch (err) {
         console.log('Got error!', err)
