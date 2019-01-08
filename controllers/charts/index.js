@@ -4,7 +4,7 @@ const getCategoryData = require('./getCategoryData')
 async function getMonthChart(req, res) {
     let filters = req.body
 
-    let data = getMonthData(filters)
+    let data = await getMonthData(filters)
 
     res.json(data)
 }

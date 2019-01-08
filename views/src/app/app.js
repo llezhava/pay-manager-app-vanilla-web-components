@@ -71,17 +71,8 @@ class PayManagerApp extends HTMLElement {
             'mode': 'open'
         });
 
-        this.filters = {
-        }
+        this.filters = {}
     }
-
-    // let testFilters = {
-//     categories: ['5', '4'],
-//     startDate: '2018-12-30T00:00:00.000Z',
-//     endDate: '2019-02-02T00:00:00.000Z',
-//     fromAmount: '25',
-//     toAmount: '35'
-// }
 
     connectedCallback() {
         this.render()
@@ -115,39 +106,41 @@ class PayManagerApp extends HTMLElement {
     }
 
     getChartPerMonth(filters) {
+        console.log('getting month charts')
         return fetch(`${url}/get/chart/bymonth`, {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(filters)
-        })
-        .then(data => data.json())
-        .then(records => {
-            this.setMonthChart(this.root, records)
-        })
-        .catch(err => {
-            console.log('Could not get payments!', err)
-            return []
-        })
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(filters)
+            })
+            .then(data => data.json())
+            .then(records => {
+                // console.log(records)
+                this.setMonthChart(this.root, records)
+            })
+            .catch(err => {
+                console.log('Could not get payments!', err)
+                return []
+            })
     }
 
     getChartPerCategory(filters) {
         return fetch(`${url}/get/chart/bycategory`, {
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(filters)
-        })
-        .then(data => data.json())
-        .then(records => {
-            this.setCategoryChart(this.root, records)
-        })
-        .catch(err => {
-            console.log('Could not get payments!', err)
-            return []
-        })
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(filters)
+            })
+            .then(data => data.json())
+            .then(records => {
+                this.setCategoryChart(this.root, records)
+            })
+            .catch(err => {
+                console.log('Could not get payments!', err)
+                return []
+            })
     }
 
 
@@ -165,8 +158,6 @@ class PayManagerApp extends HTMLElement {
                 return []
             })
     }
-
-
 
     getInitialData() {
         let payments = this.getRecords(this.filters)
@@ -197,7 +188,7 @@ class PayManagerApp extends HTMLElement {
     }
 
     setCategoryChart(node, data) {
-        let  _node = node.querySelector('#perCategory')
+        let _node = node.querySelector('#perCategory')
         _node.setAttribute('data', JSON.stringify(data))
     }
 
@@ -210,13 +201,17 @@ class PayManagerApp extends HTMLElement {
         controller.addEventListener('newFilters', e => {
             this.filters = e.detail
             this.getRecords(this.filters)
+            this.getChartPerMonth(this.filters)
         })
 
         controller.addEventListener('addPayment', e => {
             let data = e.detail
             this.addRecord(data)
                 .then((status) => {
-                    if(status.success) this.getRecords(this.filters)
+                    if (status.success) {
+                        this.getRecords(this.filters)
+                        this.getChartPerMonth(this.filters)
+                    } 
                     else console.log('Why?')
                 })
             console.log('New Payment! do something here', e.detail)

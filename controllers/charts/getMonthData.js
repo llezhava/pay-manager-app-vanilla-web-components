@@ -133,7 +133,6 @@ function mapToMonths(data) {
     })
 
     return months
-
 }
 
 function groupByMonths(data, shape) {
@@ -147,7 +146,7 @@ function groupByMonths(data, shape) {
 
     let monthValuesSum = _.map(grouped, sumValues)
 
-    let max = _.maxBy(byMonth, 'value').value
+    let max = _.maxBy(monthValuesSum, 'value').value
 
     let dataset = mapToMonths(monthValuesSum)
 

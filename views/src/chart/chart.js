@@ -32,21 +32,6 @@ template.innerHTML = `
 // When hovered bar, it will show full title of category somewhere
 // i.e into the top right place
 
-let mockData = [
-    {name: 'Jan', value: 300, max: 395},
-    {name: 'Feb', value: 225, max: 395},
-    {name: 'Mar', value: 95, max: 395},
-    {name: 'Apr', value: 192, max: 395},
-    {name: 'May', value: 220, max: 395},
-    {name: 'Jun', value: 150, max: 395},
-    {name: 'Jul', value: 15, max: 395},
-    {name: 'Aug', value: 195, max: 395},
-    {name: 'Sep', value: 395, max: 395},
-    {name: 'Oct', value: 450, max: 395},
-    {name: 'Nov', value: 295, max: 395},
-    {name: 'Dec', value: 345, max: 395}
-]
-
 class Chart extends HTMLElement {
     constructor() {
         super();
@@ -55,40 +40,75 @@ class Chart extends HTMLElement {
         });
     }
 
+    static get observedAttributes() {
+        return ['data'];
+    }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        if (name === 'data') {
+            let data = JSON.parse(newValue)
+            console.log('Changed data!', data)
+            this.appendNewChart(this.root, data)
+        }
+    }
+
+
     connectedCallback() {
         this.render()
     }
 
-    createBar(item) {
+    createBar(name, value, max) {
         let bar = document.createElement('paym-bar')
-        bar.setAttribute('name', item.name)
-        bar.setAttribute('value', item.value)
-        bar.setAttribute('max', item.max)
+        bar.setAttribute('name', name)
+        bar.setAttribute('value', value)
+        bar.setAttribute('max', max)
         return bar
     }
 
-    configure(node) {
-        let header = node.querySelector('#title')
-        let name = this.getAttribute('for')
-        header.textContent = `Payments per ${name}`
-
+    appendNewChart(node, data) {
         let chart = node.querySelector('#chart')
 
-        let data = mockData
+        if(chart === null) return
 
-        // let data = JSON.parse(this.getAttribute('data'))
-        if (data !== null) {
-            data.forEach(i => {
-                let bar = this.createBar(i)
-                chart.appendChild(bar)
-            })
+        // Remove all children
+        while (chart.firstChild) {
+            chart.removeChild(chart.firstChild)
         }
+
+        this.createChart(chart, data)
+    }
+
+
+    createChart(chart, data) {
+        let max = data.max
+
+        data.dataset.forEach(set => {
+            let bar = this.createBar(set.name, set.value, max)
+            chart.appendChild(bar)
+        })
+    }
+
+    getInitialState() {
+        let title = this.getAttribute('for')
+        let data = this.getAttribute('data') || {max: 0, dataset: []}
+
+        return {title, data}
+    }
+
+    configure(node, state) {
+        let header = node.querySelector('#title')
+        let chart = node.querySelector('#chart')
+
+        header.textContent = `Payments per ${state.title}`
+
+        this.appendNewChart(chart, state.dataset)
     }
 
     render() {
         let node = template.content.cloneNode(true)
+        let initialState = this.getInitialState(node)
 
-        this.configure(node)
+        this.configure(node, initialState)
 
         this.root.appendChild(node)
 
