@@ -3,6 +3,7 @@
 <head>
     <title>Payments Manager</title>
     <meta name="description" content="Add your payments and visualize how you spend your money">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
     <script src="./src/index.js"></script>
 </head>
@@ -87,6 +88,18 @@
         align-items: center;
 
     }
+
+    @media only screen and (max-width: 1199px) {
+  body {
+        grid-template-columns: auto auto auto;
+        grid-template-rows: auto auto auto;
+        grid-template-areas: 
+        "white head head"
+        ". app ."
+        "footer footer footer";
+        align-content: flex-start;
+  }
+}
 
 </style>
 

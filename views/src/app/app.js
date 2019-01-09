@@ -34,7 +34,7 @@ template.innerHTML = `
 #data {
     margin-top: 2em;
     display: grid;
-    grid-template-columns: 35em 1fr 30em;
+    grid-template-columns: 1fr 1fr 30em;
     grid-column-gap: 2%;
 }
 
@@ -59,6 +59,12 @@ template.innerHTML = `
     grid-column-start: 3;
     grid-column-end: 3;
 }
+
+@media only screen and (max-width: 1199px) {
+    #app {
+        width: 100%;
+    }
+  }
 </style>
 `
 

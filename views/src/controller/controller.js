@@ -25,7 +25,7 @@ paym-separator {
     background-color: white;
     padding: 1em;
     display: grid;
-    grid-template-columns: 15em auto auto 12em;
+    grid-template-columns: auto auto auto auto;
     grid-template-areas: "add-payment . any-filter extended-filters-button";
     place-items: center;
 }
