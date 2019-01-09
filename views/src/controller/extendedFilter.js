@@ -72,6 +72,18 @@ paym-tag {
     margin: 0.5em;
 }
 
+@media only screen and (max-width: 950px) {
+    #filters {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background-color: white;
+        color: #9ba5b2;
+        margin-top: 2em;
+        padding: 1em;
+    }
+  }
+
 </style>
 `
 

@@ -22,7 +22,6 @@ template.innerHTML = `
    flex-direction: column;
    justify-content: center;
    width: 1200px;
-   min-width: 950px;
 }
 
 #recordsTitle {
@@ -60,10 +59,42 @@ template.innerHTML = `
     grid-column-end: 3;
 }
 
-@media only screen and (max-width: 1199px) {
+@media only screen and (max-width: 950px) {
     #app {
         width: 100%;
     }
+    #data {
+        margin-top: 2em;
+        display: grid;
+        grid-template-columns: 100%;
+        grid-column-gap: 2%;
+        justify-content: stretch;
+        }
+    
+    .item-1 {
+        grid-row-start: 1;
+        grid-row-end: 1;
+        grid-column-start: 1;
+        grid-column-end: 1;
+        margin-bottom: 0.3em;
+    }
+    
+    .item-2 {
+        grid-row-start: 2;
+        grid-row-end: 2;
+        grid-column-start: 1;
+        grid-column-end: 1;
+
+        margin-bottom: 2em;
+    }
+    
+    .item-3 {
+        grid-row-start: 3;
+        grid-row-end: 3;
+        grid-column-start: 1;
+        grid-column-end: 1;
+    }
+
   }
 </style>
 `
