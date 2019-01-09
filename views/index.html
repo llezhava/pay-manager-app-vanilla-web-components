@@ -40,7 +40,8 @@
         margin: 0px;
         background-color: #d2ddeb;
         display: grid;
-        grid-template-columns: auto auto auto;
+        justify-items: center;
+        grid-template-columns: auto 1200px auto;
         grid-template-rows: auto auto auto;
         grid-template-areas: 
         "white head head"
@@ -55,11 +56,13 @@
         margin-bottom: 1.5em;
         display: flex;
         align-items: center;
+        justify-self: stretch;
     }
 
     #white {
         background-color: white;
         margin-bottom: 1.5em;
+        justify-self: stretch;
 
     }
 
@@ -75,6 +78,8 @@
 
     #footer {
         grid-area: footer;
+        justify-self: stretch;
+
         padding: 1em;
         background-color: white;
         display: flex;
