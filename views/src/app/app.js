@@ -62,8 +62,6 @@ template.innerHTML = `
 </style>
 `
 
-const url = `http://localhost:3000`
-
 class PayManagerApp extends HTMLElement {
     constructor() {
         super()
@@ -79,7 +77,7 @@ class PayManagerApp extends HTMLElement {
     }
 
     getCategories() {
-        return fetch(`${url}/get/categories`)
+        return fetch(`./get/categories`)
             .then(data => data.json())
             .catch(err => {
                 console.log('Could not update categories!', err)
@@ -88,7 +86,7 @@ class PayManagerApp extends HTMLElement {
     }
 
     getRecords(filters) {
-        return fetch(`${url}/get/records`, {
+        return fetch(`./get/records`, {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json',
@@ -107,7 +105,7 @@ class PayManagerApp extends HTMLElement {
 
     getChartPerMonth(filters) {
         console.log('getting month charts')
-        return fetch(`${url}/get/chart/bymonth`, {
+        return fetch(`./get/chart/bymonth`, {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json',
@@ -127,7 +125,7 @@ class PayManagerApp extends HTMLElement {
 
     getChartPerCategory(filters) {
         console.log("GETTING CHART!!")
-        return fetch(`${url}/get/chart/bycategory`, {
+        return fetch(`./get/chart/bycategory`, {
                 method: 'post',
                 headers: {
                     'Content-Type': 'application/json',
@@ -146,7 +144,7 @@ class PayManagerApp extends HTMLElement {
 
 
     addRecord(data) {
-        return fetch(`${url}/add/record`, {
+        return fetch(`./add/record`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
