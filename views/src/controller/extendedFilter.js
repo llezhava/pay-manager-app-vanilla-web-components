@@ -109,7 +109,6 @@ class ExtendedFilters extends HTMLElement {
             case 'categories':
                 {
                     let categories = this.root.querySelector('#categories')
-                    console.log('Categories', categories, this.root, this.root.firstChild)
                     if (categories === null) break;
                     this.addCategories(categories)
                     break;
@@ -146,7 +145,6 @@ class ExtendedFilters extends HTMLElement {
 
     addCategories(selectNode) {
         const categories = JSON.parse(this.getAttribute('categories'))
-        console.log('Adding categories!', categories)
 
         if (categories !== null) {
 

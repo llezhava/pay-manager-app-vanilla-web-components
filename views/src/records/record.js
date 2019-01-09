@@ -91,7 +91,6 @@ template.innerHTML = `
 `
 
 
-// TODO: Add expanded state here.
 class Record extends HTMLElement {
     constructor() {
         super()

@@ -54,7 +54,6 @@ class Bar extends HTMLElement {
         this.render()
     }
 
-    // TODO: Improve sizing
     configure(node) {
         const name = this.getAttribute('name')
         const value = this.getAttribute('value')

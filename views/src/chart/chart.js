@@ -35,10 +35,6 @@ template.innerHTML = `
  </style>
 `
 
-// TODO for categories chart:
-// When hovered bar, it will show full title of category somewhere
-// i.e into the top right place
-
 class Chart extends HTMLElement {
     constructor() {
         super();

@@ -141,7 +141,6 @@ class PayManagerApp extends HTMLElement {
     }
 
     getChartPerMonth(filters) {
-        console.log('getting month charts')
         return fetch(`./get/chart/bymonth`, {
                 method: 'post',
                 headers: {
@@ -151,7 +150,6 @@ class PayManagerApp extends HTMLElement {
             })
             .then(data => data.json())
             .then(records => {
-                // console.log(records)
                 this.setMonthChart(this.root, records)
             })
             .catch(err => {
@@ -161,7 +159,6 @@ class PayManagerApp extends HTMLElement {
     }
 
     getChartPerCategory(filters) {
-        console.log("GETTING CHART!!")
         return fetch(`./get/chart/bycategory`, {
                 method: 'post',
                 headers: {
@@ -232,9 +229,6 @@ class PayManagerApp extends HTMLElement {
 
     configure(node) {
         let controller = node.querySelector('paym-controller')
-        let records = node.querySelector('paym-records')
-        let monthChart = node.querySelector('#perMonth')
-        let categoryChart = node.querySelector('#perCategory')
 
         controller.addEventListener('newFilters', e => {
             this.filters = e.detail
@@ -254,7 +248,6 @@ class PayManagerApp extends HTMLElement {
                     } 
                     else console.log('Why?')
                 })
-            console.log('New Payment! do something here', e.detail)
         })
     }
 
