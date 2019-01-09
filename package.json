@@ -1,6 +1,6 @@
 {
   "name": "Pay-manager-vanilla-web-components",
-  "version": "0.0.0",
+  "version": "0.5.0",
   "private": true,
   "scripts": {
     "build": "parcel views/index.html -d public",
@@ -14,11 +14,9 @@
     "express": "~4.16.0",
     "faker": "^4.1.0",
     "http-errors": "~1.6.2",
-    "jade": "~1.11.0",
     "lodash": "^4.17.11",
     "morgan": "~1.9.0",
     "mysql2": "^1.6.4",
-    "sequelize": "^4.42.0",
-    "sqlite3": "^4.0.4"
+    "sequelize": "^4.42.0"
   }
 }
