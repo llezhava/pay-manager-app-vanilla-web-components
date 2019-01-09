@@ -2,12 +2,19 @@ const template = document.createElement('template');
 template.innerHTML = `
 <section id="container">
     <head>
-        <div id="title"></div>
+        <div id="head"><div id="title"></div><div id="longName"></div></div>
     </head>
     <section id="chart"></section>
 </section>
 
  <style>
+
+ #head {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
  #container {
      background-color: white;
      padding: 1em;
@@ -59,9 +66,20 @@ class Chart extends HTMLElement {
 
     createBar(name, value, max) {
         let bar = document.createElement('paym-bar')
+        let longName = this.root.querySelector('#longName')
         bar.setAttribute('name', name)
         bar.setAttribute('value', value)
         bar.setAttribute('max', max)
+
+        bar.addEventListener('mouseover', (e => {
+            let name = e.detail
+            console.log('MouseOver: ', name)
+            longName.textContent = name
+        }))
+
+        bar.addEventListener('mouseout', (e => {
+            longName.textContent = ''
+        }))
         return bar
     }
 

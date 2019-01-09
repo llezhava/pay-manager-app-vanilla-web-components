@@ -9,7 +9,7 @@ template.innerHTML = `
 <style>
 
 :host {
-    width: 100%;
+    width: 3em;
 }
 
 #bar {
@@ -61,6 +61,7 @@ class Bar extends HTMLElement {
         const max = this.getAttribute('max')
         const fill = node.querySelector('#fill')
 
+        let shortName = ('' + name).length > 3 ? (('' + name).slice(0, 3) + '...') : name
 
         const maxPixels = 250
         let currentPercent = Math.min(Math.ceil(value / max * 100), 100)
@@ -70,7 +71,15 @@ class Bar extends HTMLElement {
 
 
         node.querySelector('#value').innerText = value
-        node.querySelector('#name').innerText = name
+        node.querySelector('#name').innerText = shortName
+
+        this.addEventListener('mouseover', (e => {
+            this.dispatchEvent(new CustomEvent('mouseover', {detail: name}))
+        }))
+
+        this.addEventListener('mouseout', (e => {
+            this.dispatchEvent(new CustomEvent('mouseout', {detail: name}))
+        }))
     }
 
     render() {
