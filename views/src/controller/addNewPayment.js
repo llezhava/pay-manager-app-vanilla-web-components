@@ -4,6 +4,7 @@ import close from './../../img/close.png'
 console.log('CLOSE!!!!', close)
 template.innerHTML = `
 <section id="container">
+<section id="popup">
 <div id="head">
     <div>add new payment</div>
     <img id="closeForm" src="${close}" width="15px" height="17px">
@@ -44,10 +45,14 @@ template.innerHTML = `
 </form>
 </section>
 </section>
+</section>
 
 <style>
 :host {
     display: none;
+}
+
+#container {
     top: 0;
     left: 0;
     position: absolute; /* Stay in place */
@@ -55,14 +60,17 @@ template.innerHTML = `
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     background-color:rgba(41,45,75,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-#container {
+#popup {
     background-color: white;
     position: relative;
-    top: 25%;
-    left: 39%;
-    width: 35em;
+    max-width: 35em;
+    margin-top: 2%;
+
 }
 
 #addNewPayment {
