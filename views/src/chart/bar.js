@@ -73,12 +73,26 @@ class Bar extends HTMLElement {
         node.querySelector('#value').innerText = value
         node.querySelector('#name').innerText = shortName
 
+        let isHovered = false
         this.addEventListener('mouseenter', (e => {
-            this.dispatchEvent(new CustomEvent('mouseenter', {detail: name}))
+            if (!isHovered) {
+                isHovered = true
+                this.dispatchEvent(new CustomEvent('mouseenter', {
+                    detail: name
+                }))
+            }
+                
         }))
 
         this.addEventListener('mouseleave', (e => {
-            this.dispatchEvent(new CustomEvent('mouseleave', {detail: name}))
+            if (isHovered) {
+                isHovered = false
+                this.dispatchEvent(new CustomEvent('mouseleave', {
+                    detail: name
+                }))
+            } else {
+
+            }
         }))
     }
 

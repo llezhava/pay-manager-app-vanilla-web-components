@@ -54,7 +54,6 @@ class Chart extends HTMLElement {
     attributeChangedCallback(name, oldValue, newValue) {
         if (name === 'data') {
             let data = JSON.parse(newValue)
-            console.log('Changed data!', data)
             this.appendNewChart(this.root, data)
         }
     }
@@ -73,7 +72,6 @@ class Chart extends HTMLElement {
 
         bar.addEventListener('mouseenter', (e => {
             let name = e.detail
-            console.log('MouseOver: ', name)
             longName.textContent = name
         }))
 
