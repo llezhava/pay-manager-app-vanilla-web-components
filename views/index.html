@@ -1,30 +1,88 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Payments Manager</title>
     <meta name="description" content="Add your payments and visualize how you spend your money">
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="./src/index.js"></script>
-
 </head>
 
 <body>
-    <paym-app></paym-app>
+    <section id="white"></section>
+    <section id="head">
+        <img id="logo" src="./img/logo.png">
+    </section>
+
+    <section id="app">
+        <paym-app></paym-app>
+    </section>
+
+    <section id="footer">
+        <span>2017</span>
+        <span>payment management</span>
+    </section>
+
 </body>
 
 <style>
     html {
-        background-color: #d2ddeb;
         font-family: 'Open Sans Light';
         display: flex;
         justify-content: center;
     }
 
-    html h2 {
-        font-size: 1em;
+    #app {
+        background-color: #d2ddeb;
     }
+
+    body {
+        width: 100%;
+        margin: 0px;
+        background-color: #d2ddeb;
+        display: grid;
+        grid-template-columns: auto auto auto;
+        grid-template-rows: auto auto auto;
+        grid-template-areas: 
+        "white head head"
+        ". app ."
+        "footer footer footer";
+        align-content: flex-start;
+    }
+
+    #head {
+        background-color: white;
+        grid-area: head;
+        margin-bottom: 1.5em;
+        display: flex;
+        align-items: center;
+    }
+
+    #white {
+        background-color: white;
+        margin-bottom: 1.5em;
+
+    }
+
+    #head img {
+        grid-area: logo;
+        justify-self: start;
+    }
+
+    #app {
+        grid-area: app;
+        margin-bottom: 2em;
+    }
+
+    #footer {
+        grid-area: footer;
+        padding: 1em;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+    }
+
 </style>
 
 </html>

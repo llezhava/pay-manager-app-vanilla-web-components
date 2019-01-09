@@ -1,9 +1,11 @@
 const template = document.createElement('template')
+import add from '../../img/add.png'
+import search from '../../img/search.png'
 template.innerHTML = `
 <section id="controller">
-        <div id="addPayment"><img src="/img/add.png"><div>add payment</div></div>
+        <div id="addPayment"><img src="${add}"><div>add payment</div></div>
         <div id="any-filter">
-            <img src="/img/search.png">
+            <img src="${search}">
             <input type="text" id="anyFilter" placeholder="Filter by any property">
          </div>
         <div id="extended-filters-button">

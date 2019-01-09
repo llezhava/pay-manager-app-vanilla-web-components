@@ -1,9 +1,12 @@
 const template = document.createElement('template')
+import close from './../../img/close.png'
+
+console.log('CLOSE!!!!', close)
 template.innerHTML = `
 <section id="container">
 <div id="head">
     <div>add new payment</div>
-    <img id="closeForm" src="/img/close.png" width="15px" height="17px">
+    <img id="closeForm" src="${close}" width="15px" height="17px">
 </div>
 
 <section id="addNewPayment">
