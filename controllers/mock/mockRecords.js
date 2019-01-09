@@ -1,7 +1,4 @@
-const fs = require('fs');
-const path = require('path')
 const faker = require('faker')
-const mockDataPath = path.join(__dirname, 'records.json')
 
 function createFakeRecord() {
     let record = {
