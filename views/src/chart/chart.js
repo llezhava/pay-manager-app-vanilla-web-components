@@ -71,13 +71,13 @@ class Chart extends HTMLElement {
         bar.setAttribute('value', value)
         bar.setAttribute('max', max)
 
-        bar.addEventListener('mouseover', (e => {
+        bar.addEventListener('mouseenter', (e => {
             let name = e.detail
             console.log('MouseOver: ', name)
             longName.textContent = name
         }))
 
-        bar.addEventListener('mouseout', (e => {
+        bar.addEventListener('mouseleave', (e => {
             longName.textContent = ''
         }))
         return bar

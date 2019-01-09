@@ -73,12 +73,12 @@ class Bar extends HTMLElement {
         node.querySelector('#value').innerText = value
         node.querySelector('#name').innerText = shortName
 
-        this.addEventListener('mouseover', (e => {
-            this.dispatchEvent(new CustomEvent('mouseover', {detail: name}))
+        this.addEventListener('mouseenter', (e => {
+            this.dispatchEvent(new CustomEvent('mouseenter', {detail: name}))
         }))
 
-        this.addEventListener('mouseout', (e => {
-            this.dispatchEvent(new CustomEvent('mouseout', {detail: name}))
+        this.addEventListener('mouseleave', (e => {
+            this.dispatchEvent(new CustomEvent('mouseleave', {detail: name}))
         }))
     }
 
