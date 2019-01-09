@@ -8,10 +8,14 @@ const {
     getCategoryChart
 } = require('./charts')
 
+const {addMockCategories, addMockRecords} = require('./mock/addMockData')
+
 module.exports = {
     getCategories,
     getRecords,
     addRecord,
     getMonthChart,
-    getCategoryChart
+    getCategoryChart,
+    addMockCategories,
+    addMockRecords
 }

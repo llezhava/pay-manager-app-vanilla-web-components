@@ -1,8 +1,8 @@
 const models = require('../../models')
 const categories = ['Food', 'Gasoline', 'Entertainment', 'Mobile Services', 'Taxes']
-const records = require('./mockRecords')
+const getRecords = require('./mockRecords')
 
-async function addCategories(categories, model) {
+async function addCategoriesModel(categories, model) {
     let results = []
     categories.forEach(async category => {
         const options = {
@@ -13,7 +13,7 @@ async function addCategories(categories, model) {
     return Promise.all(results)
 }
 
-async function addRecords(records, model) {
+async function addRecordsModel(records, model) {
     let results = []
     records.forEach(async record => {
         results.push(model.create(record))
@@ -23,18 +23,27 @@ async function addRecords(records, model) {
 }
 
 
-async function addMockData(req, res) {
-    const categoriesModel = models.Category
-    const recordsModel = models.Record
+async function addRecords(req, res) {
+    let amount = req.params.amount
+    let records = getRecords(amount)
+    let recordsModel = models.Record
     try {
-        await addCategories(categories, categoriesModel)
-        await addRecords(records, recordsModel)
-        res.send('Added models!')
+        await addRecordsModel(records, recordsModel)
+        res.json(records[0])
+
     } catch(err) {
-        console.log('Error adding mock data!', err)
-        res.send('Did not add modles!')
+        res.send('error')
     }
-    
 }
 
-module.exports = addMockData
+async function addCategories(req, res) {
+    let categoriesModel = models.Category
+    try {
+        await addCategoriesModel(categories, categoriesModel)
+        res.send('success')
+    } catch(err) {
+        console.log('error')
+        res.send('Error')
+    }
+}
+module.exports = {addMockRecords: addRecords, addMockCategories: addCategories}
